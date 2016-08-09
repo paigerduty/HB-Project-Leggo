@@ -30,8 +30,9 @@ def submit_data():
 	# Store these in the session so I can use to make API call
 	session['time_pref'] = time_pref
 	session['distance_radius'] = distance_radius
-
-	return redirect('/')
+	
+	# Return JSON 
+	return "Success"
 
 if __name__ == '__main__':
 	app.debug = True

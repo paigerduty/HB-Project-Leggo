@@ -1,6 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<script type="text/javascript">
+	window.onload = function() {
+	  var startPos;
+	  var geoSuccess = function(position) {
+	    startPos = position;
+	    var latitude = (startPos.coords.latitude);
+	    var longitude = (startPos.coords.longitude);
+
+	    console.log(latitude);
+	    console.log(longitude);
+
+	    // document.getElementById('startLat').innerHTML = startPos.coords.latitude;
+	    // document.getElementById('startLon').innerHTML = startPos.coords.longitude;
+	  };
+	  var geoError = function(error) {
+	    console.log('Error occurred. Error code: ' + error.code);
+	    // error.code can be:
+	    //   0: unknown error
+	    //   1: permission denied
+	    //   2: position unavailable (error response from location provider)
+	    //   3: timed out
+	  };
+	  navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+	};
+
+	// Event listener & callback function
+</script>
 
 	<form action="/submit_data" method="POST">
 		<div>
@@ -25,6 +52,10 @@
 				<option value="5-6">5 - 6 miles</option>
 				<option value="6-7">6 - 7 miles</option>
 			</select>		
+		</div>
+		<div>
+			<input type="hidden" name="latitude" value=" ">
+			<input type="hidden" name="longitude" value=" ">
 		</div>
 		<div>
 			<input type="submit" value="SUBMIT">
