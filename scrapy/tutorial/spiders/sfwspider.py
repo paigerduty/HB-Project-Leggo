@@ -22,9 +22,9 @@ class SFWeeklySpider(scrapy.Spider):
 
     	for site in sites:
     	    item = SFWItem()
-    		item['title'] = site.select('//div[@class="').extract()
-    		item['link'] = site.select
-    		item['desc'] = site.select
+    		item['title'] = site.select('//div[@class="event-title"').extract()
+    		item['link'] = site.select('//a[@href]').extract()
+    		item['desc'] = site.select('//div[@class="description"]').extract()
     	  items.append(item)
     return items
     	
