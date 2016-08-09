@@ -2,15 +2,19 @@
 
 {% block content %}
 <script type="text/javascript">
+	debugger;
 	window.onload = function() {
 	  var startPos;
 	  var geoSuccess = function(position) {
 	    startPos = position;
-	    var latitude = (startPos.coords.latitude);
-	    var longitude = (startPos.coords.longitude);
+	    var lat = (startPos.coords.latitude);
+	    var longi = (startPos.coords.longitude);
 
-	    console.log(latitude);
-	    console.log(longitude);
+	    document.getElementById('latitude').value=lat;
+	    document.getElementById('longitude').value=longi;
+	    
+	    console.log(lat);
+	    console.log(longi);
 
 	    // document.getElementById('startLat').innerHTML = startPos.coords.latitude;
 	    // document.getElementById('startLon').innerHTML = startPos.coords.longitude;
@@ -54,8 +58,8 @@
 			</select>		
 		</div>
 		<div>
-			<input type="hidden" name="latitude" value=" ">
-			<input type="hidden" name="longitude" value=" ">
+			<input type="hidden" id="latitude" name="latitude" value=" ">
+			<input type="hidden" id="longitude" name="longitude" value=" ">
 		</div>
 		<div>
 			<input type="submit" value="SUBMIT">
