@@ -10,3 +10,8 @@ token_secret = os.environ['YELP_ACCESS_TOKEN_SECRET']
 
 yelp_api = YelpAPI(consumer_key, consumer_secret, token, token_secret)
 
+# Give yelp the lat/long and time preference from user form submit
+
+# Query Yelp for yums based on those preferences
+
+# Return the yums in a format (callback)?

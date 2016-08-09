@@ -8,7 +8,7 @@ from model import connect_to_db, db
 app = Flask(__name__)
 
 # Required for Flask sessions and debug toolbar
-# Store in environment
+# Stored in secrets.sh
 app.secret_key = os.environ.get('FLASK_SECRET_KEY')
 
 # Raises an error in Jinja when an undefined var is used
@@ -24,13 +24,18 @@ def index():
 def submit_data():
 	"""Submits user data and returns an adventure."""
 
+	# Gets all fields of form data
 	time_pref = request.form['time']
 	distance_radius = request.form['distance_radius']
+	latitude = request.form['latitude']
+	longitude = request.form['longitude']
 
 	# Store these in the session so I can use to make API call
 	session['time_pref'] = time_pref
 	session['distance_radius'] = distance_radius
-	
+	session['latitude'] = latitude
+	session['longitude'] = longitude
+
 	# Return JSON 
 	return "Success"
 
