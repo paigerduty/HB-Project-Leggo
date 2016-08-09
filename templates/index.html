@@ -2,7 +2,8 @@
 
 {% block content %}
 <script type="text/javascript">
-	debugger;
+	// This code executes when the page is loaded
+	// Upon user approval, gets the lat & long for current machine location and sets those values to hidden input
 	window.onload = function() {
 	  var startPos;
 	  var geoSuccess = function(position) {
@@ -12,13 +13,8 @@
 
 	    document.getElementById('latitude').value=lat;
 	    document.getElementById('longitude').value=longi;
-	    
-	    console.log(lat);
-	    console.log(longi);
-
-	    // document.getElementById('startLat').innerHTML = startPos.coords.latitude;
-	    // document.getElementById('startLon').innerHTML = startPos.coords.longitude;
 	  };
+
 	  var geoError = function(error) {
 	    console.log('Error occurred. Error code: ' + error.code);
 	    // error.code can be:
