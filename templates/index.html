@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<form action="/submit_data" method="POST">
+		<div>
+			What timeth will you adventure?
+			<select name="time">
+				<option value="breakfast">Bfast (9:00 - 11:30 AM)</option>
+				<option value="lunch">Lunch (12:00 - 2:00 PM)</option>
+				<option value="snack">Snack (2:00 - 4:30 PM)</option>
+				<option value="dinner">Dinner (5:00 - 8:00 PM)</option>
+				<option value="drankz">Drankz (8:00 - 12:00 AM)</option>
+			</select>
+		</div>
+		<div>
+			How fareth will you goeth?
+			<select name="distance-radius">
+				<option value="< 1">&lt; 1 mile </option>
+				<option value="1">1 mile</option>
+				<option value="1-2">1 - 2 miles</option>
+				<option value="2-3">2 - 3 miles</option>
+				<option value="3-4">3 - 4 miles</option>
+				<option value="4-5">4 - 5 miles</option>
+				<option value="5-6">5 - 6 miles</option>
+				<option value="6-7">6 - 7 miles</option>
+			</select>		
+		</div>
+		<div>
+			<input type="submit" value="SUBMIT">
+		</div>
+		
+	</form>
+
+{% endblock %}

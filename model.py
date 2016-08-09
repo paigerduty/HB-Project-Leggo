@@ -1,6 +1,6 @@
 """Model & database function for Sprint 1 - Leggo."""
 
-from flask_sqlalchemy import flask_sqlalchemy
+from flask_sqlalchemy import SQLAlchemy
 
 #Connects to PostgreSQL database via Flask-SQLAlchemy helper library
 db = SQLAlchemy()

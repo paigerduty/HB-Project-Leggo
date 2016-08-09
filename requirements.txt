@@ -1,4 +1,5 @@
 Flask==0.11.1
+Flask-DebugToolbar==0.10.0
 Flask-SQLAlchemy==2.1
 Jinja2==2.8
 MarkupSafe==0.23
@@ -9,6 +10,7 @@ Twisted==16.3.0
 Werkzeug==0.11.10
 argparse==1.2.1
 attrs==16.0.0
+blinker==1.4
 cffi==1.7.0
 click==6.6
 cryptography==1.4
@@ -25,6 +27,8 @@ pyasn1==0.1.9
 pyasn1-modules==0.0.8
 pycparser==2.14
 queuelib==1.4.2
+rauth==0.7.2
+requests==2.11.0
 service-identity==16.0.0
 six==1.10.0
 w3lib==1.15.0
