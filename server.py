@@ -9,6 +9,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from yelp.client import Client
 from yelp.oauth1_authenticator import Oauth1Authenticator
 from model import connect_to_db, db
+from yelp_yum_results import call_yelp
 
 
 app = Flask(__name__)
@@ -49,30 +50,6 @@ def submit_data():
 	# Return JSON 
 	return "Success"
 
-@app.route('/yelp_call')
-def call_yelp():
-
-	# Sets up Oauth for Yelp API requests
-	auth = Oauth1Authenticator(
-		consumer_key = os.environ.get('YELP_CONSUMER_KEY'),
-		consumer_secret = os.environ.get('YELP_CONSUMER_SECRET'),
-		token = os.environ.get('TOKEN'),
-		token_secret = os.environ.get('TOKEN_SECRET')
-	)
-
-	# Binds a Client object giving it authentication credentials
-	client = Client(auth)
-
-	# Creates dict params based on Yelp Search parameters
-	params = {
-		'term':'food',
-		'sort': 2,
-		'location':'San Francisco'
-	}
-
-	# Calls Yelp API with parameters specified information
-	# ** allows an arbitrary amount of arguments to be passed
-	response = client.search(**params)
 
 if __name__ == '__main__':
 	app.debug = True

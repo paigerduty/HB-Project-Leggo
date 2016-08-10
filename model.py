@@ -8,8 +8,20 @@ db = SQLAlchemy()
 ####################################################################
 # Model definitions
 
+class User(db.Model):
+	'''Defines a User object that interacts with app.'''
+	pass
+
+class Adventure(db.Model):
+	'''Defines an Adventure object (1 Yay & 1 Yum)'''
+	pass
+
+class Component(db.Model):
+	'''Defines unique attributes of a part of Adventure.'''
+	pass
+
 class Yay(db.Model):
-	""" Activity option for adventure pairings."""
+	''' Defines a Yay object (1 restaurant/bar/snack). Child of Component'''
 
 	__tablename__ = "yays"
 
@@ -17,6 +29,10 @@ class Yay(db.Model):
 	name = db.Column(db.String(100), nullable=False)
 	description = db.Column(db.String(500), nullable=False)
 	url = db.Column(db.String(500), nullable=True)
+
+class Yum(db.Model):
+	'''Defines a Yum object (1 activity). Child of Component.'''
+	pass
 
 ####################################################################
 # Helper functions
