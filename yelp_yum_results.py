@@ -14,7 +14,7 @@ def authenticate():
 	)
 	return auth
 
-def call_yelp(longitude,latitude):
+def call_yelp(longitude,latitude,time_pref):
 	auth = authenticate()
 
 	# Binds a Client object giving it authentication credentials
@@ -26,26 +26,24 @@ def call_yelp(longitude,latitude):
 	# Query Yelp for yums based on those preferences
 	# Return the yums in a format (callback)?
 	params = {
-		'sort':2,
-		'term':'brunch'
-	}
+		'sort':2
+		}
+
+	# Adds the user defined term to the params dictionary
+	params['term'] = time_pref
 
 	# Calls Yelp API with parameters specified information
-	# ** allows an arbitrary amount of arguments to be passed
 	response = client.search_by_coordinates(latitude,longitude,params)
 	return response
 
-
-	# Hold all objects in a list
-	# Choose the first
-	# Hold the first and get the attributes that the app wants
-	# return response
-
-def parse_data(longitude,latitude):
-	response = call_yelp(longitude,latitude)
+def parse_data(longitude,latitude,time_pref):
+	response = call_yelp(longitude,latitude,time_pref)
 	businesses = response.businesses
+	yums = []
 	for business in businesses:
-		print business.name, business.url, business.location.address
-
+		print business.name, business.categories, business.location.address
+		yums.append(business)
+		print "success"
+	print yums
 
 

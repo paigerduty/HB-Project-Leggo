@@ -38,7 +38,11 @@ def submit_data():
 	latitude = request.form['latitude']
 	longitude = request.form['longitude']
 
-	yums.parse_data(longitude,latitude)
+		
+	# Calls function that makes Yelp API call
+	# Passes in form values
+	yums.parse_data(longitude,latitude,time_pref)
+
 
 	# Need to create a geographical bounding box to give to Yelp 
 	# This will be based on the starting point +/- the given radius 
