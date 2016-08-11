@@ -31,6 +31,7 @@ class Adventure(db.Model):
 	'''Defines an Adventure object (1 Yay & 1 Yum)'''
 	__tablename__ = "adventures"
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	yum_possibilities_id = db.Column(db.Integer, db.ForeignKey('yum_possibilities_id', nullable=False)
 	# yum_possibilities is a list of ids 
 	# yay_possibilities is a list of ids
 	# Contains yum_possibilities and yay_possibilities list
