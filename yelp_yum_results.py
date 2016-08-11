@@ -13,8 +13,8 @@ def authenticate():
 		token_secret = os.environ.get('TOKEN_SECRET')
 	)
 	return auth
-	
-def call_yelp():
+
+def call_yelp(longitude,latitude):
 	auth = authenticate()
 
 	# Binds a Client object giving it authentication credentials
@@ -26,16 +26,13 @@ def call_yelp():
 	# Query Yelp for yums based on those preferences
 	# Return the yums in a format (callback)?
 	params = {
-		'term':'brunch',
-		'sort': 2,
-		'location':'San Francisco'
+		'sort':2,
+		'term':'brunch'
 	}
 
 	# Calls Yelp API with parameters specified information
 	# ** allows an arbitrary amount of arguments to be passed
-	
-	response = client.search(**params)
-	print response.businesses[0].name
+	response = client.search_by_coordinates(latitude,longitude,params)
 	return response
 
 
@@ -44,8 +41,8 @@ def call_yelp():
 	# Hold the first and get the attributes that the app wants
 	# return response
 
-def parse_data():
-	response = call_yelp()
+def parse_data(longitude,latitude):
+	response = call_yelp(longitude,latitude)
 	businesses = response.businesses
 	for business in businesses:
 		print business.name, business.url, business.location.address

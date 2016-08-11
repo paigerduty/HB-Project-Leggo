@@ -1,6 +1,7 @@
 # Importing from Python
 import os
 import requests
+import yelp_yum_results as yums
 
 # Importing from pip installed libraries
 from jinja2 import StrictUndefined
@@ -9,7 +10,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from yelp.client import Client
 from yelp.oauth1_authenticator import Oauth1Authenticator
 # from model import connect_to_db, db
-from yelp_yum_results import call_yelp
+
 
 
 app = Flask(__name__)
@@ -37,19 +38,14 @@ def submit_data():
 	latitude = request.form['latitude']
 	longitude = request.form['longitude']
 
-	session['time_pref'] = time_pref
-	session['radius'] = radius
-	session['latitude'] = latitude
-	session['longitude'] = longitude
+	yums.parse_data(longitude,latitude)
 
 	# Need to create a geographical bounding box to give to Yelp 
 	# This will be based on the starting point +/- the given radius 
 	# in all directions ne, nw, se, sw
 
 	# Changes distance radius from miles to meters for Yelp API call
-	distance_radius_m = int(radius) * 1609.34
-
-	# Creates a bounding box (4 coordinates ne, nw, se, sw)
+	radius_m = int(radius) * 1609.34
 
 
 	# Return JSON 
