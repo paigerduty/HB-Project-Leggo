@@ -30,10 +30,9 @@ db = SQLAlchemy()
 class Adventure(db.Model):
 	'''Defines an Adventure object (1 Yay & 1 Yum)'''
 	__tablename__ = "adventures"
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	yum_possibilities_id = db.Column(db.Integer, db.ForeignKey('yum_possibilities_id', nullable=False)
-	# yum_possibilities is a list of ids 
-	# yay_possibilities is a list of ids
+	# id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	# yum_possibilities_id = db.Column(db.Integer, db.ForeignKey('yum_possibilities_id', nullable=False)
+	# yay_possibilities_id = db.Column(db.Integer, db.ForeignKey('yay_possibilities_id', nullable=False)
 	# Contains yum_possibilities and yay_possibilities list
 	# Contains a collection of yum_possibilities and yay_possibilites
 	# Contains a function to calculate all the possibilites
@@ -46,15 +45,15 @@ class Component(db.Model):
 	# Not the best table name plz fix
 	__tablename__ = "components"
 
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True) 
-	time = db.Column(db.Time, nullable=False)
-	lat = db.Column(db.Integer(8), nullable=False)
-	lng = db.Column(db.Integer(8), nullable=False)
-	name = db.Column(db.String(50), nullable=False)
-	desc = db.Column(db.String(300), nullable=False)
-	url = db.Column(db.String(200), nullable=False)
-	genre = db.Column(db.String(20), nullable=True)
-	time_bucket = db.Column(db.Integer(1), nullable=False)
+	# id = db.Column(db.Integer, primary_key=True, autoincrement=True) 
+	# time = db.Column(db.Time, nullable=False)
+	# lat = db.Column(db.Integer(8), nullable=False)
+	# lng = db.Column(db.Integer(8), nullable=False)
+	# name = db.Column(db.String(50), nullable=False)
+	# desc = db.Column(db.String(300), nullable=False)
+	# url = db.Column(db.String(200), nullable=False)
+	# genre = db.Column(db.String(20), nullable=True)
+	# time_bucket = db.Column(db.Integer(1), nullable=False)
 	
 	# Define relationship between Component and Yay
 	# Define relationship bewteen Component and Yum
@@ -64,14 +63,14 @@ class Yay(Component):
 	''' Defines a Yay object (1 restaurant/bar/snack). Child of Component'''
 	__tablename__ = "yays"
 
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	# id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
 
 class Yum(Component):
 	'''Defines a Yum object (1 activity). Child of Component.'''
 	__tablename__ = "yums"
 
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	# id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	
 
 ####################################################################

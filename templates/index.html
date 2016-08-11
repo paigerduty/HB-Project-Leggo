@@ -1,35 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<script type="text/javascript">
-	// This code executes when the page is loaded
-	// Upon user approval, gets the lat & long for current machine location and sets those values to hidden input
-	window.onload = function() {
-	  var startPos;
-	  var geoSuccess = function(position) {
-	    startPos = position;
-	    var lat = (startPos.coords.latitude);
-	    var longi = (startPos.coords.longitude);
-
-	    document.getElementById('latitude').value=lat;
-	    document.getElementById('longitude').value=longi;
-	  };
-
-	  var geoError = function(error) {
-	    console.log('Error occurred. Error code: ' + error.code);
-	    // error.code can be:
-	    //   0: unknown error
-	    //   1: permission denied
-	    //   2: position unavailable (error response from location provider)
-	    //   3: timed out
-	  };
-	  navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
-	};
-
-	// Event listener & callback function
-</script>
-
-	<form action="/submit_data" method="POST">
+	<form action="/submit-data" method="POST">
 		<div>
 			What timeth will you adventure?
 			<select name="time">
@@ -42,15 +14,15 @@
 		</div>
 		<div>
 			How fareth will you goeth?
-			<select name="distance-radius">
-				<option value="< 1">&lt; 1 mile </option>
+			<select name="radius">
+				<option value="0">&lt; 1 mile </option>
 				<option value="1">1 mile</option>
-				<option value="1-2">1 - 2 miles</option>
-				<option value="2-3">2 - 3 miles</option>
-				<option value="3-4">3 - 4 miles</option>
-				<option value="4-5">4 - 5 miles</option>
-				<option value="5-6">5 - 6 miles</option>
-				<option value="6-7">6 - 7 miles</option>
+				<option value="2">1 - 2 miles</option>
+				<option value="3">2 - 3 miles</option>
+				<option value="4">3 - 4 miles</option>
+				<option value="5">4 - 5 miles</option>
+				<option value="6">5 - 6 miles</option>
+				<option value="7">6 - 7 miles</option>
 			</select>		
 		</div>
 		<div>
@@ -62,5 +34,37 @@
 		</div>
 		
 	</form>
+
+	<script type="text/javascript">
+		// This code executes when the page is loaded
+		// Upon user approval, gets the lat & long for current machine location and sets those values to hidden input
+		var latitude = document.getElementById('latitude')
+		var longitude = document.getElementById('longitude')
+
+		window.onload = function() {
+		  var startPos;
+
+		  var geoSuccess = function(position) {
+		    startPos = position;
+		    var lat = (startPos.coords.latitude);
+		    var longi = (startPos.coords.longitude);
+		    latitude.value = lat;
+		    longitude.value = longi;
+		  };
+
+		  var geoError = function(error) {
+		    console.log('Error occurred. Error code: ' + error.code);
+		    // error.code can be:
+		    //   0: unknown error
+		    //   1: permission denied
+		    //   2: position unavailable (error response from location provider)
+		    //   3: timed out
+		  };
+		  navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+		};
+
+		// Event listener & callback function
+
+	</script>
 
 {% endblock %}

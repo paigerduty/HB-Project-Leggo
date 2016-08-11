@@ -8,7 +8,7 @@ from flask import Flask, render_template, request, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from yelp.client import Client
 from yelp.oauth1_authenticator import Oauth1Authenticator
-from model import connect_to_db, db
+# from model import connect_to_db, db
 from yelp_yum_results import call_yelp
 
 
@@ -27,32 +27,37 @@ def index():
 
 	return render_template('index.html')
 
-@app.route('/submit-data')
+@app.route('/submit-data', methods=['POST'])
 def submit_data():
 	"""Submits user data and returns an adventure."""
 
 	# Gets all fields of form data
 	time_pref = request.form['time']
-	distance_radius = request.form['distance_radius']
+	radius = request.form['radius']
 	latitude = request.form['latitude']
 	longitude = request.form['longitude']
+
+	session['time_pref'] = time_pref
+	session['radius'] = radius
+	session['latitude'] = latitude
+	session['longitude'] = longitude
 
 	# Need to create a geographical bounding box to give to Yelp 
 	# This will be based on the starting point +/- the given radius 
 	# in all directions ne, nw, se, sw
 
 	# Changes distance radius from miles to meters for Yelp API call
-	distance_radius_m = int(distance_radius) * 1609.34
+	distance_radius_m = int(radius) * 1609.34
 
 	# Creates a bounding box (4 coordinates ne, nw, se, sw)
 
 
 	# Return JSON 
-	return "Success"
+	return render_template('lolz.html')
 
 
 if __name__ == '__main__':
 	app.debug = True
-	connect_to_db(app)
+	# connect_to_db(app)
 	DebugToolbarExtension(app)
 	app.run(host="0.0.0.0")
