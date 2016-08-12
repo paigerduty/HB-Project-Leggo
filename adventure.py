@@ -1,6 +1,5 @@
 """Randomly picks a yay and a yum from the list of possible ones."""
 
-import yums
 from random import choice
 
 # Calls function that makes Yelp API call

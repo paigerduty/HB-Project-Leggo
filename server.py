@@ -38,28 +38,23 @@ def submit_data():
 	radius = request.form['radius']
 	latitude = request.form['latitude']
 	longitude = request.form['longitude']
-	
+
 	# Returns a business list from Yelp API call
-	yum_list = yums.parse_data(longitude,latitude,time_pref)
-	print yum_list
+	business_list = yums.parse_data(longitude,latitude,time_pref)
 
 	# Returns a business name
-	yum = adventure.random_yum(yum_list)
-
-	# Need to create a geographical bounding box to give to Yelp 
-	# This will be based on the starting point +/- the given radius 
-	# in all directions ne, nw, se, sw
+	# yum = adventure.random_yum(yum_list)
 
 	# Changes distance radius from miles to meters for Yelp API call
 	radius_m = int(radius) * 1609.34
 
 
 	# Return JSON 
-	return render_template('lolz.html',yum=yum)
+	return render_template('lolz.html',business_list=business_list)
 
 
 if __name__ == '__main__':
 	app.debug = True
 	# connect_to_db(app)
 	DebugToolbarExtension(app)
-	app.run(host="0.0.0.0")
+	app.run(host="0.0.0.0",port=5001)

@@ -22,11 +22,13 @@ def call_yelp(longitude,latitude,time_pref):
 
 	# Creates dict params based on Yelp Search parameters
 	params = {
-		'sort':2
+		'sort':2,
+		'location':'San Francisco'
 		}
 
 	# Adds the user defined term to the params dictionary
 	params['term'] = time_pref
+	# params['cll'] = str(latitude)+","+str(longitude)
 
 	# Calls Yelp API with parameters specified information
 	response = client.search_by_coordinates(latitude,longitude,params)
