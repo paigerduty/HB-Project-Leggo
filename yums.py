@@ -21,10 +21,6 @@ def call_yelp(longitude,latitude,time_pref):
 	client = Client(auth)
 
 	# Creates dict params based on Yelp Search parameters
-	# How to dynamically get from form submission
-	# Give yelp the lat/long and time preference from user form submit
-	# Query Yelp for yums based on those preferences
-	# Return the yums in a format (callback)?
 	params = {
 		'sort':2
 		}
@@ -38,12 +34,17 @@ def call_yelp(longitude,latitude,time_pref):
 
 def parse_data(longitude,latitude,time_pref):
 	response = call_yelp(longitude,latitude,time_pref)
+
 	businesses = response.businesses
-	yums = []
+
+	print type(businesses[0])
+
+	business_list = []
+
 	for business in businesses:
-		print business.name, business.categories, business.location.address
-		yums.append(business)
-		print "success"
-	print yums
+		business_list.append(business.name)
+
+	print business_list
+	return business_list
 
 

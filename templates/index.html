@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<form action="/submit-data" method="POST">
+	<form action="/submit-data" method="POST" id="form">
 		<div>
 			What timeth will you adventure?
 			<select name="time">
@@ -30,7 +30,7 @@
 			<input type="hidden" id="longitude" name="longitude" value=" ">
 		</div>
 		<div>
-			<input type="submit" value="SUBMIT">
+			<input type="submit" id="btn" value="SUBMIT">
 		</div>
 		
 	</form>
@@ -40,30 +40,34 @@
 		// Upon user approval, gets the lat & long for current machine location and sets those values to hidden input
 		var latitude = document.getElementById('latitude')
 		var longitude = document.getElementById('longitude')
+		var btn = document.getElementById('btn')
+		
+		  btn.addEventListener("click", function(evt) {
+			  evt.preventDefault();
+			  var startPos;
 
-		window.onload = function() {
-		  var startPos;
 
-		  var geoSuccess = function(position) {
-		    startPos = position;
-		    var lat = (startPos.coords.latitude);
-		    var longi = (startPos.coords.longitude);
-		    latitude.value = lat;
-		    longitude.value = longi;
-		  };
+			  var geoSuccess = function(position) {
+			    startPos = position;
+			    var lat = (startPos.coords.latitude);
+			    var longi = (startPos.coords.longitude);
+			    latitude.value = lat;
+			    longitude.value = longi;
+			  };
 
-		  var geoError = function(error) {
-		    console.log('Error occurred. Error code: ' + error.code);
-		    // error.code can be:
-		    //   0: unknown error
-		    //   1: permission denied
-		    //   2: position unavailable (error response from location provider)
-		    //   3: timed out
-		  };
-		  navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
-		};
+			  var geoError = function(error) {
+			    console.log('Error occurred. Error code: ' + error.code);
+			    // error.code can be:
+			    //   0: unknown error
+			    //   1: permission denied
+			    //   2: position unavailable (error response from location provider)
+			    //   3: timed out
+			  };
+			  navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+			  document.getElementById('form').submit();
+			};
 
-		// Event listener & callback function
+		);
 
 	</script>
 

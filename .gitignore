@@ -1,3 +1,4 @@
 /env
 *.pyc
 secrets.sh
+install_scrapy.txt

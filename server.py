@@ -1,7 +1,8 @@
 # Importing from Python
 import os
 import requests
-import yelp_yum_results as yums
+import adventure
+import yums
 
 # Importing from pip installed libraries
 from jinja2 import StrictUndefined
@@ -37,12 +38,13 @@ def submit_data():
 	radius = request.form['radius']
 	latitude = request.form['latitude']
 	longitude = request.form['longitude']
+	
+	# Returns a business list from Yelp API call
+	yum_list = yums.parse_data(longitude,latitude,time_pref)
+	print yum_list
 
-		
-	# Calls function that makes Yelp API call
-	# Passes in form values
-	yums.parse_data(longitude,latitude,time_pref)
-
+	# Returns a business name
+	yum = adventure.random_yum(yum_list)
 
 	# Need to create a geographical bounding box to give to Yelp 
 	# This will be based on the starting point +/- the given radius 
@@ -53,7 +55,7 @@ def submit_data():
 
 
 	# Return JSON 
-	return render_template('lolz.html')
+	return render_template('lolz.html',yum=yum)
 
 
 if __name__ == '__main__':
