@@ -1,7 +1,5 @@
 import os
-import urllib
-import urllib2
-import json
+import requests
 
 
 def get_access_token():
@@ -26,7 +24,7 @@ def get_access_token():
 	return token
 
 
-def call_yelp(latitude,longitude,radius,time_pref):
+def call_yelp(latitude,longitude,time_pref):
 	token = get_access_token()
 	
 	# Authenticates each API call with request headers
@@ -38,21 +36,22 @@ def call_yelp(latitude,longitude,radius,time_pref):
 
 	# Adds the user defined term to the params dictionary
 	params['term'] = time_pref
-	params['radius'] = radius
+	# params['radius'] = radius
+	params['longitude'] = longitude
+	params['latitude'] = latitude
 
 	# Yelp API call 
-	location = 'latitude=' + str(latitude) + "," + 'longitude=' + "," + str(longitude)
 	data = urllib.urlencode(params)
-	url = 'https://api.yelp.com/v3/businesses/search?'+location
+	url = 'https://api.yelp.com/v3/businesses/search?'
 	
 	# packages up request
 	request = urllib2.Request(url,data,headers)
 
 	# sends request and catches respons
-	response = urllib2.urlopen(request)
+	response = urllib2.urlopen(request).read()
 
 	# extracts response
-	response_dict = json.load(response.read())
+	response_dict = json.load(response)
 
 	print response_dict
 
@@ -60,7 +59,7 @@ def call_yelp(latitude,longitude,radius,time_pref):
 	# response = client.search_by_coordinates(longitude,latitude,params)
 	# return response
 
-def parse_data(latitude,longitude,radius,time_pref):
+def parse_data(latitude,longitude,time_pref):
 	response = call_yelp(latitude,longitude,time_pref)
 
 	businesses = response.businesses
