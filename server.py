@@ -8,8 +8,7 @@ import yums
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
-from yelp.client import Client
-from yelp.oauth1_authenticator import Oauth1Authenticator
+
 # from model import connect_to_db, db
 
 
@@ -40,7 +39,7 @@ def submit_data():
 	longitude = request.form['longitude']
 
 	# Returns a business list from Yelp API call
-	business_list = yums.parse_data(longitude,latitude,time_pref)
+	business_list = yums.parse_data(latitude,longitude,time_pref)
 
 	# Returns a business name
 	# yum = adventure.random_yum(yum_list)
@@ -57,4 +56,4 @@ if __name__ == '__main__':
 	app.debug = True
 	# connect_to_db(app)
 	DebugToolbarExtension(app)
-	app.run(host="0.0.0.0",port=5001)
+	app.run(host="0.0.0.0",port=5000)

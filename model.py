@@ -71,7 +71,8 @@ class Yum(Component):
 	__tablename__ = "yums"
 
 	# id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	
+	# def __init__(self):
+	# def __repr__(self):
 
 ####################################################################
 # Helper functions
