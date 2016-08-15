@@ -36,7 +36,7 @@ def submit_data():
 	longitude = request.form['longitude']
 
 	# Returns a business list from Yelp API call
-	alist = yums.parse_data(latitude,longitude,time_pref)
+	yum_list = yums.parse_data(latitude,longitude,time_pref)
 
 	# Returns a business name
 	# yum = adventure.random_yum(yum_list)
@@ -46,7 +46,7 @@ def submit_data():
 
 
 	# Return JSON 
-	return render_template('lolz.html',business_list=business_list)
+	return render_template('lolz.html',yum_list=yum_list)
 
 
 if __name__ == '__main__':

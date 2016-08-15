@@ -1,15 +1,20 @@
 <!doctype html>
 <html>
+
 <head>
 {% block head %}
     <title>Leggo >>> SF</title>
 {% endblock %}
 </head>
+
 <body>
 {% block content %}
 An adventure generator
 <hr>
-{{ business_list }}
+{% for yum in yum_list %}
+	<a href="{{yum.url}}">{{ yum.name }}</a>
+{% endfor %}
 {% endblock %}
 </body>
+
 </html>
