@@ -8,19 +8,13 @@ def get_access_token():
 	app_id = os.environ.get("YELP_APP_ID")
 	app_secret = os.environ.get("YELP_APP_SECRET")
 
-	query_args = {'grant_type':'client_credentials',
+	payload = {'grant_type':'client_credentials',
 				  'client_id': app_id,
 				  'client_secret': app_secret}
 
-	# Encodes query_args dict to application/x-www-form-urlencoded
-	encoded_args = urllib.urlencode(query_args)
-	url = 'https://api.yelp.com/oauth2/token'
+	r = requests.post('https://api.yelp.com/oauth2/token', params=payload).json()
 
-	# Turns respons JSON into a dictionary
-	response_dict = json.load(urllib2.urlopen(url,encoded_args))
-
-	token = response_dict['access_token']
-
+	token = r['access_token']
 	return token
 
 
@@ -32,44 +26,35 @@ def call_yelp(latitude,longitude,time_pref):
 	headers['Authorization'] = 'Bearer ' + str(token)
 
 	# Creates dict params based on Yelp Search parameters
-	params = { }
+	payload = { }
 
 	# Adds the user defined term to the params dictionary
-	params['term'] = time_pref
+	payload['term'] = time_pref
 	# params['radius'] = radius
-	params['longitude'] = longitude
-	params['latitude'] = latitude
+	payload['longitude'] = longitude
+	payload['latitude'] = latitude
 
 	# Yelp API call 
-	data = urllib.urlencode(params)
 	url = 'https://api.yelp.com/v3/businesses/search?'
 	
-	# packages up request
-	request = urllib2.Request(url,data,headers)
-
-	# sends request and catches respons
-	response = urllib2.urlopen(request).read()
-
-	# extracts response
-	response_dict = json.load(response)
-
-	print response_dict
-
-
-	# response = client.search_by_coordinates(longitude,latitude,params)
-	# return response
+	response = requests.get(url, headers=headers, params=payload)
+	
+	return response
 
 def parse_data(latitude,longitude,time_pref):
+	''' Calls Yelp API, dictionary-fies the response, instantiates Yum objects.'''
 	response = call_yelp(latitude,longitude,time_pref)
 
-	businesses = response.businesses
+	yum_possibilities = response.json()
 
-	business_list = []
+	yum_list = []
 
-	for business in businesses:
-		business_list.append(business.name)
+	for yum in yum_possibilities:
+		# Find way to pass in name and url from dictionary
+		x = Option()
+		yum_list.append(x)
 
-	print business_list
-	return business_list
+	print yum_list
+	return yum_list
 
 

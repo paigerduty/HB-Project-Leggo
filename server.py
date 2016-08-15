@@ -7,11 +7,9 @@ import yums
 # Importing from pip installed libraries
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, redirect, flash, session
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension
 
 # from model import connect_to_db, db
-
-
 
 app = Flask(__name__)
 
@@ -25,7 +23,6 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def index():
 	"""First page."""
-
 	return render_template('index.html')
 
 @app.route('/submit-data', methods=['POST'])
@@ -55,5 +52,5 @@ def submit_data():
 if __name__ == '__main__':
 	app.debug = True
 	# connect_to_db(app)
-	DebugToolbarExtension(app)
+	# DebugToolbarExtension(app)
 	app.run(host="0.0.0.0",port=5000)
