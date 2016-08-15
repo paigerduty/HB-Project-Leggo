@@ -38,15 +38,16 @@ def submit_data():
 	# Returns a business list from Yelp API call
 	yum_list = yums.parse_data(latitude,longitude,time_pref)
 
-	# Returns a business name
-	# yum = adventure.random_yum(yum_list)
+	# Returns a random yum from yum_list
+	randoyum = adventure.random_yum(yum_list)
+
 
 	# Changes distance radius from miles to meters for Yelp API call
 	radius_m = int(radius) * 1609.34
 
 
 	# Return JSON 
-	return render_template('lolz.html',yum_list=yum_list)
+	return render_template('lolz.html',yum=randoyum)
 
 
 if __name__ == '__main__':
