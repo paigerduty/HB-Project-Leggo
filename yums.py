@@ -1,5 +1,6 @@
 import os
 import requests
+import model
 
 
 def get_access_token():
@@ -47,14 +48,21 @@ def parse_data(latitude,longitude,time_pref):
 
 	yum_possibilities = response.json()
 
+	businesses = yum_possibilities['businesses']
 	yum_list = []
 
-	for yum in yum_possibilities:
-		# Find way to pass in name and url from dictionary
-		x = Option()
-		yum_list.append(x)
+	for business in businesses:
+		name = business['name']
+		url = business['url']
+		coordinates = business['coordinates']
 
-	print yum_list
+		# Insantiate Option object
+		yum = model.Option(name, url, coordinates)
+
+		yum_list.append(yum)
+
 	return yum_list
+
+		
 
 
