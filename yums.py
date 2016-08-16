@@ -1,6 +1,7 @@
 import os
 import requests
 import model
+import json
 
 
 def get_access_token():
@@ -61,8 +62,9 @@ def parse_data(latitude,longitude,time_pref):
 
 		yum_list.append(yum)
 
-	return yum_list
-
+		# Need to convert to JSON for AJAX call
+	json_str = json.dumps([yum.__dict__ for yum in yum_list])
+	return json_str
 		
 
 
