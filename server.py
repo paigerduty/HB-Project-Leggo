@@ -2,11 +2,10 @@
 import os
 import requests
 import adventure
-import yums
 
 # Importing from pip installed libraries
 from jinja2 import StrictUndefined
-from flask import Flask, render_template, request, redirect, flash, session
+from flask import Flask, render_template, jsonify, request, redirect, flash, session
 # from flask_debugtoolbar import DebugToolbarExtension
 
 # from model import connect_to_db, db
@@ -35,19 +34,22 @@ def submit_data():
 	latitude = request.form['latitude']
 	longitude = request.form['longitude']
 
+    # Changes distance radius from miles to meters for Yelp API call
+	radius_m = int(radius) * 1609.34
+
 	# Returns a business list from Yelp API call
-	# yum_list = yums.parse_data(latitude,longitude,time_pref)
+	yum_list = adventure.parse_data(latitude,longitude,time_pref)
 
 	# Returns a random yum from yum_list
 	randoyum = adventure.random_yum(yum_list)
+	print randoyum
+
+	# JSONify randoyum
+	return jsonify(randoyum)
 
 
-	# Changes distance radius from miles to meters for Yelp API call
-	radius_m = int(radius) * 1609.34
 
 
-	# Return JSON 
-	return render_template('lolz.html',yum=randoyum)
 
 
 if __name__ == '__main__':

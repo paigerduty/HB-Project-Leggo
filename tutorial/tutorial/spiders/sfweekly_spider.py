@@ -7,9 +7,7 @@ class YayObject(scrapy.Spider):
 
 	def parse(self,response):
 		""" For each 'event' grab the name and the url."""
-		filename = response.url.split("/")[-2] + '.html'
-		with open(filename,'wb') as f:
-			f.write(response.body)
+		for sel in response.xpath
 
 	def parse_yay(self, response):
 		""" Follows the url to grab the element 'span.street-address' """
