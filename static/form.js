@@ -1,26 +1,23 @@
 // Javascript & jQuery to handle form submission
 
-// Event listener
+window.onload = function(){
+	navigator.geolocation.getCurrentPosition(handleGetCurrentPosition);
+}
 
-// Document.ready get coordinates
-// change the DOM element values
-$(document).ready(
-	if(navigator.geolocation){
-		var position;
-		navigator.geolocation.getCurrentPosition(function(position)
-			$('latitude').val(position.coords.latitude);
-			$('longitude').val(position.coords.longitude);
-		);} 
-	else {
-		console.log("Geolocation is not supported by this browser.");
-		}
-	);
+function handleGetCurrentPosition(location){
+	var latitude = document.getElementById("latitude");
+	var longitude = document.getElementById("longitude");
+	latitude.value = location.coords.latitude;
+	longitude.value = location.coords.longitude;
+}
+
 
 // AJAX call to replace form with Adventure!
 // Typical format is $.get(url, [data], successFunction)
 function submitForm(evt){
 	// Stops form from being submitted so that we can save values to var
 	evt.PreventDefault();
+
 	// Sets form input values to an object called formInputs
 	var formInputs = $('#form').serialize();
 
@@ -32,7 +29,7 @@ function submitForm(evt){
 		   getAdventure);
 }
 
-
+// Callback function that replaces the form element with the result
 function getAdventure(result){
 	$('#form').html(result);
  }

@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% block head %}
+	<title>Leggo.SF</title>
+	<h1> LEGGO >>> SF</h1>
+{% endblock %}
 
 {% block content %}
 
@@ -35,17 +39,6 @@
 		</div>
 		
 	</form>
-	<script type="text/javascript">
-		window.onload = function(){
-			navigator.geolocation.getCurrentPosition(handleGetCurrentPosition);
-		}
-
-		function handleGetCurrentPosition(location){
-			var latitude = document.getElementById("latitude");
-			var longitude = document.getElementById("longitude");
-			latitude.value = location.coords.latitude;
-			longitude.value = location.coords.longitude;
-		}
-	</script>
+	<script src="/static/form.js"></script>
 
 {% endblock %}
