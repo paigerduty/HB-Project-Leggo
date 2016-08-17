@@ -15,9 +15,10 @@ class SFWeeklySpider(scrapy.Spider):
 			item['location'] = sel.xpath('div[2]/div/span[1]').extract()
 			yield item
 
-			# Location! Tell Scrapy to recursively scrape the event page 
+		# next_page = response.xpath('//*[@id="PaginationBottom"]/a')
+		# for page in next_page:
+		# 	url = response.urljoin(next_page.extract())
+		# 	yield scrapy.Request(url, self.parse)
 
-	def parse_yay(self, response):
-		""" Follows the url to grab the element 'span.street-address' """
-		pass
-		# yield { 'address': response.css('span. street-address')}
+
+
