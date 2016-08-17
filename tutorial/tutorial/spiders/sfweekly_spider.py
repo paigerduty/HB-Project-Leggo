@@ -1,4 +1,5 @@
 import scrapy
+from tutorial.sfweekly_items import SFWeeklyItem
 
 class SFWeeklySpider(scrapy.Spider):
 	name = "sfweekly"
@@ -7,14 +8,13 @@ class SFWeeklySpider(scrapy.Spider):
 
 	def parse(self,response):
 		""" For each 'event' grab the name and the url."""
+		for sel in response.xpath('//*[@id="searchResults"]/div/div'):	
+			item = SFWeeklyItem()
+			item['name'] = sel.xpath('div[1]/a/span').extract()
+			item['url'] = sel.xpath('div[1]/a/@href').extract()
+			item['location'] = sel.xpath('div[2]/div/span[1]').extract()
+			yield item
 
-		filename = response.url.split("/")[-2] + '.html'
-		with open(filename, 'wb') as f:
-			f.write(response.body)
-
-		for sel in response.xpath('//*[@id="searchResults"/div/div/div'):
-			name = sel.xpath('a/span').extract()
-			url = sel.xpath('a/@href').extract()
 			# Location! Tell Scrapy to recursively scrape the event page 
 
 	def parse_yay(self, response):
