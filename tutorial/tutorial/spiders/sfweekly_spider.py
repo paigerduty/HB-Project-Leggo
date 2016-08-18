@@ -1,24 +1,12 @@
 import scrapy
-# from scrapy.spiders import CrawlSpider, Rule
-# from scrapy.linkextractors.sgml import SgmlLinkExtractor
-# from scrapy.linkextractors import LinkExtractor 
 from tutorial.sfweekly_items import SFWeeklyItem
+from model import Yay
 
 class SFWeeklySpider(scrapy.Spider):
 	# Necessary variables for setting up a spider
 	name = "sfweekly"
 	allowed_domains = ["sfweekly.com"]
 	start_urls = ["http://archives.sfweekly.com/sanfrancisco/EventSearch?narrowByDate=Today"]
-
-	# Defines how a spider follows links
-	# Allow defines the link href
-	# Callback calls the parsing function
-	# Follow instructs spider to continue following links
-	# rules = Rule(SgmlLinkExtractor(allow=(), 
-	# 	                       restrict_xpaths=('//*[@id="PaginationBottom"]/a'),
-	# 	                       callback="parse_yays", 
-	# 	                       follow=True)
-	# )
 
 	
 	def parse(self, response):
@@ -29,18 +17,25 @@ class SFWeeklySpider(scrapy.Spider):
 
 	# Scrapes each event calendar page for events
 	def parse_yays(self,response):
-		''' Extracts relevant event info from page'''
+		''' Extracts relevant event info from page saves as SFWeeklyItem'''
+		items = []
 		for sel in response.xpath('//*[@id="searchResults"]/div/div'):	
 			item = SFWeeklyItem()
 			item['name'] = sel.xpath('div[1]/a/span').extract()
 			item['url'] = sel.xpath('div[1]/a/@href').extract()
 			item['location'] = sel.xpath('div[2]/div/span[1]').extract()
+			items.append(item)
 			yield item
 
-		# next_page = response.xpath('//*[@id="PaginationBottom"]/a')
-		# for page in next_page:
-		# 	url = response.urljoin(next_page.extract())
-		# 	yield scrapy.Request(url, self.parse)
+		fields = ["name", "url", "location"]
+		with open('scraped_items.txt','wr') as f:
+			f.write("{}\n".format('\t'.join(str(field)
+									   for field in fields)))
+			for item in items:
+				f.write("{}\n".format('\t'.join(str(item[field])
+									  for field in fields)))
+
+			
 
 
 

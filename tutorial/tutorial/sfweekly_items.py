@@ -5,12 +5,12 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/items.html
 
-import scrapy
+from scrapy.item import Item, Field
 
 
-class SFWeeklyItem(scrapy.Item):
+class SFWeeklyItem(Item):
     # define the fields for your item here like:
-    name = scrapy.Field()
-    url = scrapy.Field()
-    location = scrapy.Field()
+    name = Field()
+    url = Field()
+    location = Field()
     

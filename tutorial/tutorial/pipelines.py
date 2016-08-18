@@ -6,6 +6,14 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 
-class TutorialPipeline(object):
-    def process_item(self, item, spider):
-        return item
+
+class myExporter(object):
+	# def write_to_csv(self, item, spider):
+	# 	writer = csv.writer(open(settings.csv_file_path, 'a'), lineterminator='\n')
+	# 	writer.writerow([item[key] for key in item.keys()])
+
+	# def process_item(self, item, spider):
+	# 	write_to_csv(item)
+	# 	return item
+
+	pass
