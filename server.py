@@ -18,6 +18,7 @@ app.secret_key = os.environ.get('FLASK_SECRET_KEY')
 
 # Raises an error in Jinja when an undefined var is used
 app.jinja_env.undefined = StrictUndefined
+app.jinja_env.auto_reload = True
 
 @app.route('/')
 def index():
@@ -27,7 +28,6 @@ def index():
 @app.route('/submit-data', methods=['POST'])
 def submit_data():
 	"""Submits user data and returns an adventure."""
-
 	# Gets all fields of form data
 	time_pref = request.form['time']
 	radius = request.form['radius']
