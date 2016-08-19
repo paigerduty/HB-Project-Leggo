@@ -41,6 +41,7 @@ class Possibility(object):
 	# function - get new
 	# function - get current
 	# made up of list of options
+	pass
 
 class Yay(db.Model):
 	''' Defines a Yay.'''

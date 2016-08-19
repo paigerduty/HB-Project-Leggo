@@ -1,6 +1,6 @@
 import scrapy
 from tutorial.sfweekly_items import SFWeeklyItem
-from model import Yay
+from scrapy.utils.markup import remove_tags
 
 class SFWeeklySpider(scrapy.Spider):
 	# Necessary variables for setting up a spider
@@ -21,19 +21,21 @@ class SFWeeklySpider(scrapy.Spider):
 		items = []
 		for sel in response.xpath('//*[@id="searchResults"]/div/div'):	
 			item = SFWeeklyItem()
-			item['name'] = sel.xpath('div[1]/a/span').extract()
+			item['name'] = sel.xpath('div[1]/a/span/text()').extract()
 			item['url'] = sel.xpath('div[1]/a/@href').extract()
-			item['location'] = sel.xpath('div[2]/div/span[1]').extract()
+			item['location'] = sel.xpath('div[2]/div/span[1]/text()').extract()
 			items.append(item)
 			yield item
 
 		fields = ["name", "url", "location"]
-		with open('scraped_items.txt','wr') as f:
-			f.write("{}\n".format('\t'.join(str(field)
-									   for field in fields)))
+		with open('scraped_items.txt','r+') as f:
+			for field in fields:
+				f.write("{}\n".format(field))
+
 			for item in items:
-				f.write("{}\n".format('\t'.join(str(item[field])
-									  for field in fields)))
+				vals = item.values()
+				for vals in vals:
+					f.write("{}\n".format(vals))
 
 			
 

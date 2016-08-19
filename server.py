@@ -43,9 +43,15 @@ def submit_data():
 	# Returns a random yum from yum_list
 	randoyum = adventure.random_yum(yum_list)
 	print randoyum
-
 	# JSONify randoyum
 	return jsonify(randoyum)
+
+	# Returns an activity list from db query
+
+	# Returns a random activity from the activity list
+
+	
+
 
 
 
