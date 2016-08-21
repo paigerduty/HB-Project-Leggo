@@ -1,7 +1,3 @@
-name
-url
-location
-[] | [] | []
 [u'Audio Tour of Top Historic Buildings in San Francisco'] | [u'http://archives.sfweekly.com/sanfrancisco/audio-tour-of-top-historic-buildings-in-san-francisco/Event?oid=4704965'] | [u'130 Sutter']
 [u'Le Jazz hot'] | [u'http://archives.sfweekly.com/sanfrancisco/le-jazz-hot/Event?oid=4715829'] | [u'39 Fell St']
 [u'Snoopy Presents: Lucky Dogs and Presidential Pets Exhibition'] | [u'http://archives.sfweekly.com/sanfrancisco/snoopy-presents-lucky-dogs-and-presidential-pets-exhibition/Event?oid=4703222'] | [u'2301 Hardies Lane']
@@ -17,8 +13,4 @@ location
 [u'Genera#ion: Contemporary Art from Saudi Arabia'] | [u'http://archives.sfweekly.com/sanfrancisco/generaion-contemporary-art-from-saudi-arabia/Event?oid=4824975'] | [u'1275 Minnesota St']
 [u'Pint Sized Plays VI'] | [u'http://archives.sfweekly.com/sanfrancisco/pint-sized-plays-vi/Event?oid=4853527'] | [u'144 Taylor']
 [u'Foot! Walking Tours'] | [u'http://archives.sfweekly.com/sanfrancisco/foot-walking-tours/Event?oid=2570973'] | [u'Multiple addresses']
-[] | [] | []
-[] | [] | []
-/archives.sfweekly.com/sanfrancisco/common-ground-a-celebration-of-our-national-parks/Event?oid=4582988'] | [u'2150 Allston Way']
-[] | [] | []
-[] | [] | []
+

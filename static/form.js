@@ -38,7 +38,8 @@ $('#form').on("submit", function(evt){
 // Callback function that replaces the form element with the result
 function getAdventure(result){
 	debugger;
-	$('#form').html(result);
+	$('#form').html();
+	$('#adventure').html(result);
  }
 
 

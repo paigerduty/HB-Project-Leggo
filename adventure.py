@@ -68,6 +68,10 @@ def parse_data(latitude,longitude,time_pref):
 	return yum_list
 
 # Call the function that queries the db for a Yay
+
+def get_yay():
+	result = db.session.query(func.max(Yay.yay_id)).one()
+
 # Randomly chooses one 
 
 # Returns 1 yum and 1 yay

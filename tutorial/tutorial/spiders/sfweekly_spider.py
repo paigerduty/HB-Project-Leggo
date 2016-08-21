@@ -27,12 +27,14 @@ class SFWeeklySpider(scrapy.Spider):
 			items.append(item)
 			yield item
 
-		fields = ["name", "url", "location"]
+		# Clears file
+		f = open('scraped_items.txt', 'w')
+		f.close()
 		with open('scraped_items.txt','r+') as f:
 			# Writes header row
-			for field in fields:
-				f.write("{}\n".format(field))
-				# f.write('name: %s, url:%s, location:%s\n') % (item['name'],item['url'], item['location'])
+			# for field in fields:
+			# 	f.write("{}\n".format(field))
+			# 	# f.write('name: %s, url:%s, location:%s\n') % (item['name'],item['url'], item['location'])
 
 			# Iterates through items and writes their values to filed
 			for item in items:
