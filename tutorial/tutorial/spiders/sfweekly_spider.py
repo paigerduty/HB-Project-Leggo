@@ -29,13 +29,15 @@ class SFWeeklySpider(scrapy.Spider):
 
 		fields = ["name", "url", "location"]
 		with open('scraped_items.txt','r+') as f:
+			# Writes header row
 			for field in fields:
 				f.write("{}\n".format(field))
+				# f.write('name: %s, url:%s, location:%s\n') % (item['name'],item['url'], item['location'])
 
+			# Iterates through items and writes their values to filed
 			for item in items:
-				vals = item.values()
-				for vals in vals:
-					f.write("{}\n".format(vals))
+				f.write("%s | %s | %s\n" % (item['name'], item['url'], item['location']))
+		f.close()
 
 			
 
