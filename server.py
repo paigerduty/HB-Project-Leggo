@@ -46,6 +46,9 @@ def submit_data():
 	# JSONify randoyum
 	return jsonify(randoyum)
 
+	randoyay = adventure.get_yay()
+	print randoyay
+
 	# Returns an activity list from db query
 
 	# Returns a random activity from the activity list

@@ -1,8 +1,8 @@
 import os
 import requests
-import model
 from flask import jsonify
 from random import choice
+from model import Yay, connect_to_db, db
 
 """Makes Yelp API call to get Yums
    Queries db to get Yays
@@ -70,7 +70,8 @@ def parse_data(latitude,longitude,time_pref):
 # Call the function that queries the db for a Yay
 
 def get_yay():
-	result = db.session.query(func.max(Yay.yay_id)).one()
+	yay = Yay.query.one()
+	return yay
 
 # Randomly chooses one 
 
@@ -83,5 +84,6 @@ def random_yum(yum_list):
 	 return yum
 
 
-
+if __name__ == "__main__":
+	connect_to_db(app)
 
