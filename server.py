@@ -2,11 +2,12 @@
 import os
 import requests
 import adventure
+from model import connect_to_db, db, app,Yay
 
 # Importing from pip installed libraries
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, jsonify, request, redirect, flash, session
-# from flask_debugtoolbar import DebugToolbarExtension
+from flask_debugtoolbar import DebugToolbarExtension
 
 # from model import connect_to_db, db
 
@@ -29,40 +30,32 @@ def index():
 def submit_data():
 	"""Submits user data and returns an adventure."""
 	# Gets all fields of form data
-	time_pref = request.form['time']
-	radius = request.form['radius']
-	latitude = request.form['latitude']
-	longitude = request.form['longitude']
-
-    # Changes distance radius from miles to meters for Yelp API call
-	radius_m = int(radius) * 1609.34
+	time_pref = request.form.get('time')
+	print time_pref
+	radius = request.form.get('radius')
+	latitude = request.form.get('latitude')
+	longitude = request.form.get('longitude')
 
 	# Returns a business list from Yelp API call
+	# Returns a random yum from 
 	yum_list = adventure.parse_data(latitude,longitude,time_pref)
 
 	# Returns a random yum from yum_list
 	randoyum = adventure.random_yum(yum_list)
-	print randoyum
-	# JSONify randoyum
-	return jsonify(randoyum)
-
 	randoyay = adventure.get_yay()
-	print randoyay
 
-	# Returns an activity list from db query
+	# TURN OBJECT INTO DICTIONARY
+	# EMPT DICT LOOP THROUGH OBJCET ATTR ADD TO DICT RETURN DICT
+	# JSONIFY DICTIONARY
+	print type(randoyum)
+	print type(randoyay)
 
-	# Returns a random activity from the activity list
-
-	
-
-
-
-
+	return jsonify(randoyum, randoyay)
 
 
 
 if __name__ == '__main__':
 	app.debug = True
-	# connect_to_db(app)
-	# DebugToolbarExtension(app)
+	connect_to_db(app)
+	DebugToolbarExtension(app)
 	app.run(host="0.0.0.0",port=5000)

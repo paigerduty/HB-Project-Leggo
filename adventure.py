@@ -1,8 +1,9 @@
 import os
 import requests
-from flask import jsonify
+from model import Yay, connect_to_db, db, app
+# from server import app
+from flask import Flask, current_app, jsonify
 from random import choice
-from model import Yay, connect_to_db, db
 
 """Makes Yelp API call to get Yums
    Queries db to get Yays
@@ -67,21 +68,24 @@ def parse_data(latitude,longitude,time_pref):
 
 	return yum_list
 
-# Call the function that queries the db for a Yay
-
-def get_yay():
-	yay = Yay.query.one()
-	return yay
-
-# Randomly chooses one 
-
-# Returns 1 yum and 1 yay
-
-
 def random_yum(yum_list):
 	# Need to convert to JSON for AJAX call
 	 yum = choice(yum_list)
+	 print yum
 	 return yum
+
+# def random_yay():
+# 	app = Flask(__name__)
+# 	with app.app_context():
+# 		randoyay = choice(Yay.query.all())
+# 		print randoyay
+# 		return randoyay
+
+def get_yay():
+	yay_list = Yay.query.all()
+	yay = choice(yay_list)
+	print yay
+	return yay
 
 
 if __name__ == "__main__":

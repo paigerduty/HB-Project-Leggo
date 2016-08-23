@@ -48,8 +48,8 @@ class Yay(db.Model):
 	# Objects created from either a db query or a Yelp API call
 	__tablename__ = "yays"
 
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	name = db.Column(db.String(75), nullable=False)
+	# yay_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	name = db.Column(db.String(75), primary_key=True,nullable=False)
 	url = db.Column(db.String(300), nullable=False)
 	location = db.Column(db.String(100), nullable=False)
 
@@ -70,7 +70,7 @@ def connect_to_db(app):
 	#Configure to use PostgreSQL database
 	app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///yays'
 	app.config['SQLALCHEMY_ECHO'] = True
-	app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+	app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 	db.app = app
 	db.init_app(app)
 

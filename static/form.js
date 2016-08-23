@@ -20,7 +20,14 @@ function submitForm(evt){
 	evt.preventDefault();
 
 	// Sets form input values to an object called formInputs
-	var formInputs = $('#form').serialize();
+	var formInputs = {
+		"latitude": $('input[name="latitude"]').val(),
+		"longitude": $('input[name="longitude"]').val(),
+		"time_pref": $('#time_pref').val()
+	};
+
+	// var formInputs = $("#form").serialize
+	console.log(formInputs);
 
 	// Makes the POST request to submit the form data to the route
 	// Sends the data in a dictionary called formInputs
@@ -31,15 +38,32 @@ function submitForm(evt){
 		   getAdventure);
 }
 
+// Eventhandler, on form submit, call the function submitForm
 $('#form').on("submit", function(evt){
 	submitForm(evt);
 });
 
 // Callback function that replaces the form element with the result
 function getAdventure(result){
-	debugger;
-	$('#form').html();
-	$('#adventure').html(result);
- }
+	$('#form').html(result);
+	$('#result').html(result);
+ };
 
-
+// $(function() {
+// 	$('button').click(function() {
+// 		var latitude = $('#latitude').val();
+// 		var longitude = $('#longitude').val();
+// 		var time_pref = $('#time_pref').val();
+// 		$.ajax({
+// 			url: '/submit-data',
+// 			data: $('form').serialize(),
+// 			type: 'POST',
+// 			success: function(response) {
+// 				console.log(response)
+// 			},
+// 			error: function(error) {
+// 				console.log(error);
+// 			}
+// 		});
+// 	});
+// });
