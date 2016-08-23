@@ -30,27 +30,29 @@ def index():
 def submit_data():
 	"""Submits user data and returns an adventure."""
 	# Gets all fields of form data
-	time_pref = request.form.get('time')
-	print time_pref
-	radius = request.form.get('radius')
+	time_pref = request.form.get('time_pref')
+	# radius = request.form['radius']
 	latitude = request.form.get('latitude')
 	longitude = request.form.get('longitude')
 
 	# Returns a business list from Yelp API call
-	# Returns a random yum from 
+	# # Returns a random yum from 
 	yum_list = adventure.parse_data(latitude,longitude,time_pref)
 
-	# Returns a random yum from yum_list
 	randoyum = adventure.random_yum(yum_list)
+	
+
+	# Returns a random yum from yum_list
 	randoyay = adventure.get_yay()
 
-	# TURN OBJECT INTO DICTIONARY
-	# EMPT DICT LOOP THROUGH OBJCET ATTR ADD TO DICT RETURN DICT
-	# JSONIFY DICTIONARY
-	print type(randoyum)
-	print type(randoyay)
 
-	return jsonify(randoyum, randoyay)
+	adv = adventure.dictionaryfy_objects(randoyay,randoyum)
+	
+	print "\n\n\n" 
+	print adv
+	print "\n\n\n"
+
+	return jsonify(adv)
 
 
 

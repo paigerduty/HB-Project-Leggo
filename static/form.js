@@ -16,23 +16,23 @@ function handleGetCurrentPosition(location){
 // AJAX call to replace form with Adventure!
 // Typical format is $.get(url, [data], successFunction)
 function submitForm(evt){
-	// Stops form from being submitted so that we can save values to var
 	evt.preventDefault();
-
-	// Sets form input values to an object called formInputs
+	// Sets form input values to an object 
 	var formInputs = {
-		"latitude": $('input[name="latitude"]').val(),
-		"longitude": $('input[name="longitude"]').val(),
+		"latitude": $('#latitude').val(),
+		"longitude": $('#longitude').val(),
 		"time_pref": $('#time_pref').val()
 	};
-
-	// var formInputs = $("#form").serialize
-	console.log(formInputs);
+	// JSON-ifys javascript object to prep for post
+	var stringy = JSON.stringify(formInputs, 
+								['latitude', 
+								 'longitude', 
+								 'time_pref']
+								); 
+	console.log(stringy);
 
 	// Makes the POST request to submit the form data to the route
-	// Sends the data in a dictionary called formInputs
 	// Calls function getAdventure once back from server
-	
 	$.post("/submit-data",
 		   formInputs,
 		   getAdventure);
@@ -43,27 +43,13 @@ $('#form').on("submit", function(evt){
 	submitForm(evt);
 });
 
-// Callback function that replaces the form element with the result
+// $('#form').on("submit", submitForm);
+
+// When data is retrieved from post request, call getAdventure
 function getAdventure(result){
 	$('#form').html(result);
-	$('#result').html(result);
- };
+	$('#result').val(result);
+	console.log("made it back from flask route :D");
+	console.log(result);
+};
 
-// $(function() {
-// 	$('button').click(function() {
-// 		var latitude = $('#latitude').val();
-// 		var longitude = $('#longitude').val();
-// 		var time_pref = $('#time_pref').val();
-// 		$.ajax({
-// 			url: '/submit-data',
-// 			data: $('form').serialize(),
-// 			type: 'POST',
-// 			success: function(response) {
-// 				console.log(response)
-// 			},
-// 			error: function(error) {
-// 				console.log(error);
-// 			}
-// 		});
-// 	});
-// });

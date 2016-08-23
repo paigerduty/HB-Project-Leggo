@@ -74,18 +74,30 @@ def random_yum(yum_list):
 	 print yum
 	 return yum
 
-# def random_yay():
-# 	app = Flask(__name__)
-# 	with app.app_context():
-# 		randoyay = choice(Yay.query.all())
-# 		print randoyay
-# 		return randoyay
-
 def get_yay():
 	yay_list = Yay.query.all()
 	yay = choice(yay_list)
-	print yay
+	print yay	
 	return yay
+
+def dictionaryfy_objects(randoyay,randoyum):
+	adventure_dict = {}
+	
+	yay_dict = {}
+	yay_dict['name'] = randoyay.name
+	yay_dict['url'] = randoyay.url
+	yay_dict['location'] = randoyay.location
+
+	yum_dict = {}
+	yum_dict['name'] = randoyum['name']
+	yum_dict['url'] = randoyum['url']
+	yum_dict['location'] = randoyum['coordinates']
+
+	adventure_dict['yum'] = yum_dict
+	adventure_dict['yay'] = yay_dict
+
+	return adventure_dict
+
 
 
 if __name__ == "__main__":
