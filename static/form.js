@@ -47,8 +47,20 @@ $('#form').on("submit", function(evt){
 
 // When data is retrieved from post request, call getAdventure
 function getAdventure(result){
-	$('#form').html(result);
-	$('#result').val(result);
+	// yay = result.yay
+	// yum = result.yum
+	// adventure_deets = {yay.name,
+	// 				   yay.location,
+	// 				   yum.name,
+	// 				   yum.location
+	// 				  }
+	$('#result').html(result.yay.name);
+	$('#result').append(result.yay.location);
+	$('#result').append(result.yay.url);
+	$('#result').append(result.yum.name);
+	$('#result').append(result.yum.location);
+	$('#result').append(result.yum.url);
+
 	console.log("made it back from flask route :D");
 	console.log(result);
 };
