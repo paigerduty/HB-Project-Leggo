@@ -3,7 +3,6 @@ from tutorial.sfweekly_items import SFWeeklyItem
 from scrapy.utils.markup import remove_tags
 
 class SFWeeklySpider(scrapy.Spider):
-	# Necessary variables for setting up a spider
 	name = "sfweekly"
 	allowed_domains = ["sfweekly.com"]
 	start_urls = ["http://archives.sfweekly.com/sanfrancisco/EventSearch?narrowByDate=Today"]
@@ -19,6 +18,7 @@ class SFWeeklySpider(scrapy.Spider):
 	def parse_yays(self,response):
 		''' Extracts relevant event info from page saves as SFWeeklyItem'''
 		items = []
+
 		for sel in response.xpath('//*[@id="searchResults"]/div/div'):	
 			item = SFWeeklyItem()
 			item['name'] = sel.xpath('div[1]/a/span/text()').extract()
@@ -27,19 +27,11 @@ class SFWeeklySpider(scrapy.Spider):
 			items.append(item)
 			yield item
 
-		# Clears file
-		f = open('scraped_items.txt', 'w')
-		f.close()
+		# Iterates through items and writes their values to file
 		with open('scraped_items.txt','r+') as f:
-			# Writes header row
-			# for field in fields:
-			# 	f.write("{}\n".format(field))
-			# 	# f.write('name: %s, url:%s, location:%s\n') % (item['name'],item['url'], item['location'])
-
-			# Iterates through items and writes their values to filed
 			for item in items:
 				f.write("%s | %s | %s\n" % (item['name'], item['url'], item['location']))
-		f.close()
+			f.close()
 
 			
 
