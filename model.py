@@ -1,4 +1,4 @@
-"""Model & database function for Sprint 1 - Leggo."""
+"""Classes for database only"""
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
@@ -12,36 +12,13 @@ db = SQLAlchemy()
 # Model definitions
 
 # db.Model is a base class for all Models for SQLAlchemy
-# class User(db.Model):
-# 	'''Defines a User object that interacts with app.'''
-# 	# Needs to go to SQLAlchemy
-# 	__tablename__ = "users"
-# 	# Contains likes/dislikes of adventures and/or yums yays
-# 	# Contains password
-# 	# Contains their 'genre'
-
-# 	# email & pass needed to instantiate User
-# 	def __init__(self,email,password):
-# 		self.email = email
-# 		self.password = password
-
-# 	# when object called, show helpful info
-# 	def __repr__(self):
-# 		return '<User %r>' % self.email
-# 	pass
 
 class Adventure(object):
 	'''Defines an adventure'''
 	# Contains 2 Possibilities (1 named Yum and 1 named Yay) 
 	pass
 
-class Possibility(object):
-	'''Defines a possibility. Should be named either Yum or Yay'''
-	# __init__ self.lat, self.long, self.radius, self.time
-	# function - get new
-	# function - get current
-	# made up of list of options
-	pass
+
 
 class Yay(db.Model):
 	''' Defines a Yay.'''
@@ -59,7 +36,18 @@ class Yay(db.Model):
 		self.location = location
 
 	def __repr__(self):
-		return '<Option %r>' % self.name
+		return '<Yay %r>' % self.name
+
+# class Yum(object):
+# 	''' A Yum created after the Yelp API call.'''
+
+# 	def __init__(self, name, url, coordinates):
+# 		self.name = name
+# 		self.url = url
+# 		self.location = coordinates
+
+# 	def __repr__(self):
+# 		return '<Yum %s' % self.name
 
 ####################################################################
 # Helper functions

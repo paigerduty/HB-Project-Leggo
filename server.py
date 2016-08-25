@@ -31,16 +31,26 @@ def submit_data():
 	"""Submits user data and returns an adventure."""
 	# Gets all fields of form data
 	time_pref = request.form.get('time_pref')
-	# radius = request.form['radius']
 	latitude = request.form.get('latitude')
 	longitude = request.form.get('longitude')
 
 	# Returns a business list from Yelp API call
 	# # Returns a random yum from 
-	yum_list = adventure.parse_data(latitude,longitude,time_pref)
-
-	randoyum = adventure.random_yum(yum_list)
+	yum_list = adventure.YumPossibilities(latitude,longitude,time_pref)
 	
+	print "\n\n\n"
+	print "**********************"
+	print yum_list
+	print "**********************"
+	print "\n\n\n"
+	yum_list.get_yums()
+	randoyum = yum_list.get_yum()
+	# randoyum = adventure.random_yum(yum_list)
+	print "\n\n\n"
+	print "**********************"
+	print randoyum
+	print "**********************"
+	print "\n\n\n"
 
 	# Returns a random yum from yum_list
 	randoyay = adventure.get_yay()
