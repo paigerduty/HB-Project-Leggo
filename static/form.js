@@ -54,14 +54,14 @@ function getAdventure(result){
 	// 				   yum.name,
 	// 				   yum.location
 	// 				  }
-	// $('#result').html(result.yay.name);
-	// $('#result').append(result.yay.location);
-	// $('#result').append(result.yay.url);
-	$('#result').html(result.yum.name);
+	$('#result').html(result.yay.name);
+	$('#result').append(result.yay.location);
+	$('#result').append(result.yay.url);
+	$('#result').append(result.yum.name);
 	$('#result').append(result.yum.location);
 	$('#result').append(result.yum.url);
 
-	console.log("made it back from flask route :D");
+	console.log("Made it back from flask route :D");
 	console.log(result);
 };
 

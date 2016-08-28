@@ -121,19 +121,22 @@ class Adventure(object):
 		randoyum = self.yums.get_yum()
 		return randoyum
 
-	# Gets yay
-	# yay_list = yays.get_yays()
-	# randoyay = yay_list.get_yay()
+	def get_the_yay(self):
+		yay_list = self.yays.get_yays()
+		randoyay = self.yays.get_yay()
+		return randoyay
 
 	# def dictionaryfy_objects(randoyay,randoyum):
 	def dictionaryfy_objects(self):
 		adventure_dict = {}
 		
 		randoyum = self.get_the_yum()
-		# yay_dict = {}
-		# yay_dict['name'] = randoyay.name
-		# yay_dict['url'] = randoyay.url
-		# yay_dict['location'] = randoyay.location
+		randoyay = self.get_the_yay()
+
+		yay_dict = {}
+		yay_dict['name'] = randoyay.name
+		yay_dict['url'] = randoyay.url
+		yay_dict['location'] = randoyay.location
 
 		yum_dict = {}
 		yum_dict['name'] = randoyum.name
@@ -141,7 +144,7 @@ class Adventure(object):
 		yum_dict['location'] = randoyum.location
 
 		adventure_dict['yum'] = yum_dict
-		# adventure_dict['yay'] = yay_dict
+		adventure_dict['yay'] = yay_dict
 
 		return adventure_dict
 
