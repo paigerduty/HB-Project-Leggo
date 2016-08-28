@@ -34,35 +34,23 @@ def submit_data():
 	latitude = request.form.get('latitude')
 	longitude = request.form.get('longitude')
 
-	# Returns a business list from Yelp API call
-	# # Returns a random yum from 
-	yum_list = adventure.YumPossibilities(latitude,longitude,time_pref)
-	
-	print "\n\n\n"
-	print "**********************"
-	print yum_list
-	print "**********************"
-	print "\n\n\n"
-	yum_list.get_yums()
-	randoyum = yum_list.get_yum()
-	# randoyum = adventure.random_yum(yum_list)
-	print "\n\n\n"
-	print "**********************"
-	print randoyum
-	print "**********************"
-	print "\n\n\n"
 
-	# Returns a random yum from yum_list
-	randoyay = adventure.get_yay()
+	adv = adventure.Adventure(latitude, longitude, time_pref)
 
-
-	adv = adventure.dictionaryfy_objects(randoyay,randoyum)
-	
-	print "\n\n\n" 
+	print "\n\n*********************"
 	print adv
-	print "\n\n\n"
+	print "\n\n"
 
-	return jsonify(adv)
+
+	adv_json = adv.dictionaryfy_objects()
+
+	print "*********************\n\n"
+	print adv_json
+	print "*********************\n\n"
+
+	return jsonify(adv_json)
+
+
 
 
 

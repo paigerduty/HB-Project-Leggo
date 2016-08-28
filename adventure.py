@@ -1,19 +1,13 @@
 import os
 import requests
 from model import Yay, connect_to_db, db, app
-# from server import app
 from flask import Flask, current_app, jsonify
 from random import choice
 
-''' Helper functions and classes'''
-
-"""Makes Yelp API call to get Yums
-   Queries db to get Yays
-   Randomly picks a Yum & Yay"""
-
 class YumPossibilities(object):
-	'''Defines a possibility. Should be named either Yum or Yay'''
+	'''A list of Yum objects returned from Yelp API call.'''
 	yum_list = []
+
 # STORE THIS OBJECT 
 # PASS JAVASCRIPT AND TOGGLE HIDE/SHOW
 # METHOD THAT MAKES REP OF CLASS FOR JS. JSONIFY DICT
@@ -37,6 +31,7 @@ class YumPossibilities(object):
 		self.token = token 
 
 	def call_yelp(self):
+		'''Calls Yelp API using user submitted parameters'''
 		# Gets access token
 		self.get_access_token()
 
@@ -45,7 +40,6 @@ class YumPossibilities(object):
 		headers['Authorization'] = 'Bearer ' + str(self.token)
 
 		# Creates a dictionary based on Yelp Search params
-		# adds form data
 		payload = {}
 		payload['term'] = self.time_pref
 		payload['longitude'] = self.longitude
@@ -78,14 +72,8 @@ class YumPossibilities(object):
 			raise AttributeError("Must call get_yums before get_yum")
 		else:
 			self.get_yums()
-			# Need to convert to JSON for AJAX call
 			yum = self.yum_list.pop()
-			print yum
 			return yum
-
-	# function - get new
-	# function - get current
-	# made up of list of options
 
 class Yum(object):
 	def __init__(self, name, url, location):
@@ -96,31 +84,66 @@ class Yum(object):
 	def __repr__(self):
 		return '<Yay %s>' % self.name
 
-def get_yay():
-	yay_list = Yay.query.all()
-	yay = choice(yay_list)
-	print yay	
-	return yay
+class YayPossibilities(object):
+	yay_list = []
 
-def dictionaryfy_objects(randoyay,randoyum):
-	adventure_dict = {}
-	
-	yay_dict = {}
-	yay_dict['name'] = randoyay.name
-	yay_dict['url'] = randoyay.url
-	yay_dict['location'] = randoyay.location
+	def __init__(self, latitude,longitude,time_pref):
+		self.latitude = latitude
+		self.longitude = longitude
+		self.time_pref = time_pref
 
-	yum_dict = {}
-	yum_dict['name'] = randoyum.name
-	yum_dict['url'] = randoyum.url
-	yum_dict['location'] = randoyum.location
+	def get_yays(self):
+		yay_list = Yay.query.all()
+		self.yay_list = yay_list
 
-	adventure_dict['yum'] = yum_dict
-	adventure_dict['yay'] = yay_dict
-
-	return adventure_dict
+	def get_yay(self):
+			if not self.yay_list:
+				raise AttributeError("Must scrape & seed db before calling get_yay.")
+			else:
+				self.get_yays()
+				yay = self.yay_list.pop()
+				return yay
 
 
+class Adventure(object):
+	''' An object with YumPossibilities and YayPossibilities objects and methods 
+	    to return a random one and dictionaryfy it.'''
+
+	def __init__(self, latitude, longitude, time_pref):
+		self.latitude = latitude
+		self.longitude = longitude
+		self.time_pref = time_pref
+		self.yums = YumPossibilities(latitude, longitude, time_pref)
+		self.yays = YayPossibilities(latitude, longitude, time_pref)
+
+	def get_the_yum(self):
+		yum_list = self.yums.get_yums()
+		randoyum = self.yums.get_yum()
+		return randoyum
+
+	# Gets yay
+	# yay_list = yays.get_yays()
+	# randoyay = yay_list.get_yay()
+
+	# def dictionaryfy_objects(randoyay,randoyum):
+	def dictionaryfy_objects(self):
+		adventure_dict = {}
+		
+		randoyum = self.get_the_yum()
+		# yay_dict = {}
+		# yay_dict['name'] = randoyay.name
+		# yay_dict['url'] = randoyay.url
+		# yay_dict['location'] = randoyay.location
+
+		yum_dict = {}
+		yum_dict['name'] = randoyum.name
+		yum_dict['url'] = randoyum.url
+		yum_dict['location'] = randoyum.location
+
+		adventure_dict['yum'] = yum_dict
+		# adventure_dict['yay'] = yay_dict
+
+		return adventure_dict
 
 if __name__ == "__main__":
 	connect_to_db(app)
