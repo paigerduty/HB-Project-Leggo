@@ -1,16 +1,16 @@
 // Javascript & jQuery to handle form submission
 console.log('I loaded!');
 
-window.onload = function(){
+$(document).ready( function(){
 	navigator.geolocation.getCurrentPosition(handleGetCurrentPosition);
-}
+	});
 
 function handleGetCurrentPosition(location){
 	var latitude = document.getElementById("latitude");
 	var longitude = document.getElementById("longitude");
 	latitude.value = location.coords.latitude;
 	longitude.value = location.coords.longitude;
-}
+};
 
 
 // AJAX call to replace form with Adventure!
@@ -43,17 +43,8 @@ $('#form').on("submit", function(evt){
 	submitForm(evt);
 });
 
-// $('#form').on("submit", submitForm);
-
 // When data is retrieved from post request, call getAdventure
 function getAdventure(result){
-	// yay = result.yay
-	// yum = result.yum
-	// adventure_deets = {yay.name,
-	// 				   yay.location,
-	// 				   yum.name,
-	// 				   yum.location
-	// 				  }
 	$('#result').html(result.yay.name);
 	$('#result').append(result.yay.location);
 	$('#result').append(result.yay.url);
