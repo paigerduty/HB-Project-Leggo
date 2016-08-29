@@ -82,7 +82,8 @@ class Yum(object):
 		self.location = location
 
 	def __repr__(self):
-		return '<Yay %s>' % self.name
+		return '<Yum %s>' % self.name
+
 
 class YayPossibilities(object):
 	yay_list = []
@@ -132,6 +133,7 @@ class Adventure(object):
 		
 		randoyum = self.get_the_yum()
 		randoyay = self.get_the_yay()
+
 
 		yay_dict = {}
 		yay_dict['name'] = randoyay.name

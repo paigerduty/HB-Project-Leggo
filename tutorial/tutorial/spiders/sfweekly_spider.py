@@ -5,13 +5,15 @@ from scrapy.utils.markup import remove_tags
 class SFWeeklySpider(scrapy.Spider):
 	name = "sfweekly"
 	allowed_domains = ["sfweekly.com"]
-	start_urls = ["http://archives.sfweekly.com/sanfrancisco/EventSearch?narrowByDate=Today"]
+	base_url = 'http://archives.sfweekly.com/sanfrancisco/EventSearch?narrowByDate=Today&page=%s'
+	start_urls = []
 
+	for num in range(1,10):
+		start_urls.append(base_url % num)
 	
 	def parse(self, response):
 		''' Grabs a list of links to follow'''
-		for num in response.xpath('//*[@id="PaginationBottom"]/a/@data-page').extract():
-			url = self.start_urls[0] + "&page=" + num
+		for url in start_urls:
 			yield scrapy.Request(url, callback=self.parse_yays)
 
 	# Scrapes each event calendar page for events
@@ -25,7 +27,7 @@ class SFWeeklySpider(scrapy.Spider):
 			item['url'] = sel.xpath('div[1]/a/@href').extract()
 			item['location'] = sel.xpath('div[2]/div/span[1]/text()').extract()
 			items.append(item)
-			yield item
+			# yield item
 
 		# Iterates through items and writes their values to file
 		with open('scraped_items.txt','r+') as f:
