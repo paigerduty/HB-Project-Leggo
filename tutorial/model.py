@@ -14,45 +14,11 @@ db = SQLAlchemy()
 ####################################################################
 # Model definitions
 
-# db.Model is a base class for all Models for SQLAlchemy
-# class User(db.Model):
-# 	'''Defines a User object that interacts with app.'''
-# 	# Needs to go to SQLAlchemy
-# 	__tablename__ = "users"
-# 	# Contains likes/dislikes of adventures and/or yums yays
-# 	# Contains password
-# 	# Contains their 'genre'
-
-# 	# email & pass needed to instantiate User
-# 	def __init__(self,email,password):
-# 		self.email = email
-# 		self.password = password
-
-# 	# when object called, show helpful info
-# 	def __repr__(self):
-# 		return '<User %r>' % self.email
-# 	pass
-
-class Adventure(object):
-	'''Defines an adventure'''
-	# Contains 2 Possibilities (1 named Yum and 1 named Yay) 
-	pass
-
-class Possibility(object):
-	'''Defines a possibility. Should be named either Yum or Yay'''
-	# __init__ self.lat, self.long, self.radius, self.time
-	# function - get new
-	# function - get current
-	# made up of list of options
-	pass
-
 class Yay(db.Model):
 	''' Defines a Yay.'''
 	# Objects created from either a db query or a Yelp API call
 	__tablename__ = "yays"
-
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	name = db.Column(db.String(75), nullable=False)
+	name = db.Column(db.String(75), nullable=False, primary_key=True)
 	url = db.Column(db.String(300), nullable=False)
 	location = db.Column(db.String(100), nullable=False)
 
@@ -63,8 +29,6 @@ class Yay(db.Model):
 
 	def __repr__(self):
 		return '<Option %r>' % self.name
-
-
 
 ####################################################################
 # Helper functions

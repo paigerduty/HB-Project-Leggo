@@ -44,8 +44,21 @@ $('#form').on("submit", function(evt){
 });
 
 // When data is retrieved from post request, call getAdventure
+
+<div id="result">
+	<h2>adventah!</h2>
+	<div id="yay">
+		<div id="yay_name"></div>
+		<div id ="yay_location"></div>
+	</div>
+	<div id="yum">
+		<div id="yum_name"></div>
+		<div id="yum_location"></div>
+	</div>
+</div>
 function getAdventure(result){
-	$('#result').html(result.yay.name);
+	$('div > div', '#yay').html(result.yay.name);
+	$('#result').append(result.yay.url);
 	$('#result').append(result.yay.location);
 	$('#result').append(result.yay.url);
 	$('#result').append(result.yum.name);

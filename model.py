@@ -12,6 +12,10 @@ class Yay(db.Model):
 	'''An activity with a name, url, location.'''
 	__tablename__ = "yays"
 
+	name = db.Column(db.String(75), primary_key=True,nullable=False)
+	url = db.Column(db.String(300), nullable=False)
+	location = db.Column(db.String(100), nullable=False)
+
 	def __init__(self, name, url, location):
 		self.name = name
 		self.url = url
@@ -20,19 +24,17 @@ class Yay(db.Model):
 	def __repr__(self):
 		return '<Yay %r>' % self.name
 
-	name = db.Column(db.String(75), primary_key=True,nullable=False)
-	url = db.Column(db.String(300), nullable=False)
-	location = db.Column(db.String(100), nullable=False)
+
 
 
 ####################################################################
 # Helper functions
 
-def connect_to_db(app):
+def connect_to_db(app,url='postgresql:///yays'):
 	"""Connect the database to Flask app."""
 
 	#Configure to use PostgreSQL database
-	app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///yays'
+	app.config['SQLALCHEMY_DATABASE_URI'] = url
 	app.config['SQLALCHEMY_ECHO'] = True
 	app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 	db.app = app
