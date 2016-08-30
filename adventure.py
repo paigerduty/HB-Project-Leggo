@@ -134,16 +134,15 @@ class Adventure(object):
 		randoyum = self.get_the_yum()
 		randoyay = self.get_the_yay()
 
-
 		yay_dict = {}
-		yay_dict['name'] = randoyay.name
-		yay_dict['url'] = randoyay.url
-		yay_dict['location'] = randoyay.location
+		yay_dict['name'] = (randoyay.name)
+		yay_dict['url'] = (randoyay.url)
+		yay_dict['location'] = (randoyay.location)
 
 		yum_dict = {}
 		yum_dict['name'] = randoyum.name
 		yum_dict['url'] = randoyum.url
-		yum_dict['location'] = randoyum.location
+		yum_dict['location'] = str(randoyum.location)
 
 		adventure_dict['yum'] = yum_dict
 		adventure_dict['yay'] = yay_dict
