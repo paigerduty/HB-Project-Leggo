@@ -59,12 +59,11 @@ $('#form').on("submit", function(evt){
 function getAdventure(result){
 	$("#yay_url").attr("href", result.yay.url);
 	$("#yay_name").html(result.yay.name);
-	// $('#yay_location').append(result.yay.url);
-	// $('#result').append(result.yay.location);
-	// $('#result').append(result.yay.url);
-	// $('#result').append(result.yum.name);
-	// $('#result').append(result.yum.location);
-	// $('#result').append(result.yum.url);
+	$('#yay_location').html(result.yay.location);
+
+	$("#yum_url").attr("href", result.yum.url);
+	$("#yum_name").html(result.yum.name);
+	$("#yum_location").html(result.yum.location);
 
 	console.log("Made it back from flask route :D");
 	console.log(result);
