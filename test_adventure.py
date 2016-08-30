@@ -60,10 +60,13 @@ class YayPossibilitiesTest(unittest.TestCase):
 		connect_to_db(app, "postgresql:///testyays")
 		db.create_all()
 
-		Yay('Name 1','Url 1','Location 1')
-		Yay('Name 2','Url 2','Location 2')
-		Yay('Name 3','Url 3','Location 3')
-		# Write a couple YAY objects to put in there
+		self.yays = [Yay(name='Name 1',url='Url 1',location='Location 1'),
+				Yay(name='Name 2',url='Url 2',location='Location 2'),
+				Yay(name='Name 3',url='Url 3',location='Location 3')]
+
+		for yay in self.yays:
+			db.session.add(yay)
+		db.session.commit()
 		
 	def tearDown(self):
 		"""Stuff to do at the end of every test."""
@@ -73,17 +76,17 @@ class YayPossibilitiesTest(unittest.TestCase):
 	def test_YP_get_yays_with_mock(self):
 		"""Query db for all yays."""
 		# result = self.client.post("")
+		yay_list = self.test_YP.get_yays()
+		print self.yay_list
+		"""FIX ME"""
+		self.assertTrue(len(yay_list) > 0)
 
-	def test_YP_get_yays(self):
-		self.test_YP.get_yays()
-		self.assertTrue(self.test_YP.yay_list is not None)
+	# def test_YP_get_yay_with_mock(self):
+	# 	self.test_YP.yay_list = self.test_YP.get_yays()
+	# 	yay = self.test_YP.get_yay()
 
-
-	def test_YP_get_yay(self):
-		yays = self.test_YP.get_yays()
-		yay = self.test_YP.get_yay()
-		# is it instance of Yay object???
-		self.assertTrue(yay is not None)
+	# 	# is it instance of Yay object???
+	# 	self.assertTrue(type(Yay) is object)
 
 class YumYayObjectTest(unittest.TestCase):
 	# Tests object attributes
