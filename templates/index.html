@@ -3,13 +3,14 @@
 	<title>Leggo.SF</title>
 	<h1> LEGGO >>> SF</h1>
 	<link rel="stylesheet" type="text/css" href="./static/style.css"></style>
+	<link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Monoton" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
 
 	<form action="#" id="form" method="post">
 		<div>
-			What timeth will you adventure?
+			What would you like to eat?
 			<select name="time_pref" id = "time_pref">
 				<option value="brunch">Brunch</option>
 				<option value="lunch">Lunch</option>
@@ -35,7 +36,7 @@
 				<div id="yay_name"></div>
 			</a>
 			<div id ="yay_location"></div>
-			<input type="submit" id="swap-yay" value="Swap Yay">
+			<input type="submit" id="swap-yay" value="Swap Yay" style="visibility:hidden;">
 		</div>
 		
 		<div id="yum">
@@ -43,7 +44,7 @@
 			<div id="yum_name"></div>
 			</a>
 			<div id="yum_location"></div>
-			<input type="submit" id="swap-yum" value="Swap Yum">
+			<input type="submit" id="swap-yum" value="Swap Yum" style="visibility:hidden;">
 		</div>
 
 		<div id="map">
@@ -58,5 +59,6 @@
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_xW2bY5gurPCZ58xxGceA_CabDtTTLO0&amp;callback=initMap">
 </script>
+
 
 {% endblock %}

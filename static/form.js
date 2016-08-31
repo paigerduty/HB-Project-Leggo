@@ -12,6 +12,7 @@ function handleGetCurrentPosition(location){
 	longitude = document.getElementById("longitude");
 	latitude.value = location.coords.latitude;
 	longitude.value = location.coords.longitude;
+
 };
 
 //default not clickable function set button to clickable
@@ -66,11 +67,12 @@ function getAdventure(result){
 	$("#yay_url").attr("href", current_yay.url);
 	$("#yay_name").html(current_yay.name);
 	$('#yay_location').html(current_yay.location);
+	$('#swap-yay').attr("style","");
 
 	$("#yum_url").attr("href", current_yum.url);
 	$("#yum_name").html(current_yum.name);
 	$("#yum_location").html(current_yum.location);
-
+	$('#swap-yum').attr("style", "");
 };
 
 function initMap(){
