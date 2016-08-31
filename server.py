@@ -51,7 +51,8 @@ def submit_data():
 
 @app.route('/swap-yay')
 def swap_yay():
-	yay_list = session.get['yay_list']
+	adv = session.get['adventure']
+	
 	yay = yay_list.pop()
 	
 	# yay_dict = {}
