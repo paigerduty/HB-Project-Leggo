@@ -61,21 +61,35 @@ function getAdventure(result){
 	console.log(result);
 };
 
-function swapYay (result) {
-	result = JSON.parse(result);
-	$("#yay_url").attr("href", result.yay.url);
-	$("#yay_name").html(result.yay.name);
-	$('#yay_location').html(result.yay.location);
-}
-
-
 function submitSwapYay(evt){
 	console.log("Going to get a new Yay!");
 
 	$.get("/swap-yay", swapYay);
+
+		// function(result) {
+		// result = JSON.parse(result);
+		// console.log(result);
+		// console.log("Back with Yay")
+
+		// $("#yay_url").attr("href", result.yay.url);
+		// $("#yay_name").html(result.yay.name);
+		// $('#yay_location').html(result.yay.location);
+
 }
 
-$('#swap-yay').on("submit", function(evt){
-	swapYay(evt);
+
+
+$('#swap-yay').on("click", function(evt){
+	submitSwapYay(evt);
 });
+
+function swapYay (result) {
+	result = JSON.parse(result);
+	console.log(result.data);
+	console.log("Back with a Yay")
+
+	$("#yay_url").attr("href", result.yay.url);
+	$("#yay_name").html(result.yay.name);
+	$('#yay_location').html(result.yay.location);
+};
 

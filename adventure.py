@@ -66,6 +66,7 @@ class YumPossibilities(object):
 			yum_list.append(yum)
 		
 		self.yum_list = yum_list
+		return yum_list
 
 	def get_yum(self):
 		if not self.yum_list:
@@ -96,6 +97,7 @@ class YayPossibilities(object):
 	def get_yays(self):
 		yay_list = Yay.query.all()
 		self.yay_list = yay_list
+		return yay_list
 
 	def get_yay(self):
 			if not self.yay_list:
@@ -119,12 +121,10 @@ class Adventure(object):
 		self.yays = YayPossibilities(latitude, longitude, time_pref)
 
 	def get_the_yum(self):
-		self.yum_list = self.yums.get_yums()
 		randoyum = self.yums.get_yum()
 		return randoyum
 
 	def get_the_yay(self):
-		self.yay_list = self.yays.get_yays()
 		randoyay = self.yays.get_yay()
 		return randoyay
 
@@ -133,22 +133,39 @@ class Adventure(object):
 
 	def get_adventure(self):
 		adventure_dict = {}
-		
+		yum_list = self.yums.get_yums()
+		yay_list = self.yays.get_yays()
+
+		print "\n\n\n**************"
+		print yay_list
+		print yum_list
+		print "\n\n\n**************"
+
 		randoyum = self.get_the_yum()
 		randoyay = self.get_the_yay()
 
-		yay_dict = {}
-		yay_dict['name'] = (randoyay.name)
-		yay_dict['url'] = (randoyay.url)
-		yay_dict['location'] = (randoyay.location)
-
 		yum_dict = {}
-		yum_dict['name'] = randoyum.name
-		yum_dict['url'] = randoyum.url
-		yum_dict['location'] = str(randoyum.location)
+		# for yum in yum_list:
+		# 	yumm = {}
+		# 	yumm['name'] = yum.name
+		# 	yumm['url'] = yum.url
+		# 	yumm['location'] = str(yum.location)
 
-		adventure_dict['yum'] = yum_dict
-		adventure_dict['yay'] = yay_dict
+		# 	yum['yum'] = yumm
+
+		# GETS LIST OF YUMS AND YAYS THEN POPS OFF
+
+		yay_dict = {}
+		for yay in yay_list:
+			yayy = {}
+			yayy['name'] = yay.name
+			yayy['url'] = yay.url
+			yayy['location'] = yay.location
+
+			yay_dict['yay'] = yayy
+
+		# adventure_dict['yums'] = yum_dict
+		adventure_dict['yays'] = yay_dict
 
 		return adventure_dict
 

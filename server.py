@@ -37,30 +37,48 @@ def submit_data():
 
 	adv = adventure.Adventure(latitude, longitude, time_pref)
 
-	adv_json = adv.get_adventure()
-	adv_json = json.dumps(adv_json)
+	adventah = adv.get_adventure()
+	adv_json = json.dumps(adventah)
 
+	print "Im in route now...... adventah"
+
+	# yum_list_json = jsonify(yum_list)
+
+	session['yums'] = adventah
 	# # Create vars to hold lists of yums and yays
 	# # add to session
 	# yum_list = adv.yums.yum_list
 	# yay_list = adv.yays.yay_list
 
-	session['adventure'] = adv_json
+	# print "********************\n\n\n"
+	# print yay_list
+	# print "********************\n\n\n"
+
+
+	# session['yay_list'] = yay_list
 
 	return adv_json
 
 @app.route('/swap-yay')
 def swap_yay():
-	adv = session.get['adventure']
-	
-	yay = yay_list.pop()
-	
-	# yay_dict = {}
-	# yay_dict['name'] = yay.name
-	# yay_dict['url'] = yay.url
-	# yay_dict['location'] = yay.location
+	yay_list = session['yay_list']
 
-	return yay
+	print "********************\n\n\n"
+	print yay_list
+	print "********************\n\n\n"
+
+
+	# yay_list = json.loads(yay_list)
+	# UNJSONIFY ADVENTURE
+	# GRAB YAY LIST
+	# POP OFF YAY
+	# RETURN
+
+	# print "********************\n\n\n"
+	# print yay_list
+	# print "********************\n\n\n"
+	
+	return yay_list
 
 # Access yum and yay lists from session
 # call method to pop a new one 
