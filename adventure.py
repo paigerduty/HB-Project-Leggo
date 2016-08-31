@@ -62,7 +62,7 @@ class YumPossibilities(object):
 			url = business['url']
 			location = business['coordinates']
 			yum = Yum(name, url, location)
-			
+				
 			yum_list.append(yum)
 		
 		self.yum_list = yum_list
@@ -103,6 +103,7 @@ class YayPossibilities(object):
 			else:
 				self.get_yays()
 				yay = self.yay_list.pop()
+				
 				return yay
 
 
@@ -118,17 +119,19 @@ class Adventure(object):
 		self.yays = YayPossibilities(latitude, longitude, time_pref)
 
 	def get_the_yum(self):
-		yum_list = self.yums.get_yums()
+		self.yum_list = self.yums.get_yums()
 		randoyum = self.yums.get_yum()
 		return randoyum
 
 	def get_the_yay(self):
-		yay_list = self.yays.get_yays()
+		self.yay_list = self.yays.get_yays()
 		randoyay = self.yays.get_yay()
 		return randoyay
 
-	# def dictionaryfy_objects(randoyay,randoyum):
-	def dictionaryfy_objects(self):
+	# GET YUMS GET YAYS AS SEPARATE FUNCTIONS
+	# THEN GET YUM GET YAY AND HOLD LIST
+
+	def get_adventure(self):
 		adventure_dict = {}
 		
 		randoyum = self.get_the_yum()
@@ -148,6 +151,26 @@ class Adventure(object):
 		adventure_dict['yay'] = yay_dict
 
 		return adventure_dict
+
+	def swap_yay(self):
+		new_yay = self.yay_list.pop()
+
+		yay_dict = {}
+		yay_dict['name'] = (new_yay.name)
+		yay_dict['url'] = (new_yay.url)
+		yay_dict['location'] = (new_yay.location)
+
+		return yay_dict
+
+	def swap_yum(self):
+		new_yum = self.yum_list.pop()
+				
+		yum_dict = {}
+		yum_dict['name'] = (new_yum.name)
+		yum_dict['url'] = (new_yum.url)
+		yum_dict['location'] = str(new_yum.location)
+
+		return yum_dict
 
 if __name__ == "__main__":
 	connect_to_db(app)

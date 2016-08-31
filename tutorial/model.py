@@ -16,7 +16,7 @@ db = SQLAlchemy()
 
 class Yay(db.Model):
 	''' Defines a Yay.'''
-	# Objects created from either a db query or a Yelp API call
+	# Objects created from either a db query
 	__tablename__ = "yays"
 	name = db.Column(db.String(75), nullable=False, primary_key=True)
 	url = db.Column(db.String(300), nullable=False)
@@ -30,6 +30,12 @@ class Yay(db.Model):
 	def __repr__(self):
 		return '<Option %r>' % self.name
 
+	def make_json(self):
+		return {
+				'name' : self.name,
+				'url' : self.url,
+				'location' : self.location
+		 		}
 ####################################################################
 # Helper functions
 

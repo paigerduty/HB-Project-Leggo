@@ -2,6 +2,7 @@
 import os
 import requests
 import adventure
+import json
 from model import connect_to_db, db, app,Yay
 
 # Importing from pip installed libraries
@@ -34,25 +35,34 @@ def submit_data():
 	latitude = request.form.get('latitude')
 	longitude = request.form.get('longitude')
 
-
 	adv = adventure.Adventure(latitude, longitude, time_pref)
 
-	print "\n\n*********************"
-	print adv
-	print "\n\n"
+	adv_json = adv.get_adventure()
+	adv_json = json.dumps(adv_json)
 
+	# # Create vars to hold lists of yums and yays
+	# # add to session
+	# yum_list = adv.yums.yum_list
+	# yay_list = adv.yays.yay_list
 
-	adv_json = adv.dictionaryfy_objects()
+	session['adventure'] = adv_json
 
-	print "*********************\n\n"
-	print adv_json
-	print "*********************\n\n"
+	return adv_json
 
-	return jsonify(adv_json)
+@app.route('/swap-yay')
+def swap_yay():
+	yay_list = session.get['yay_list']
+	yay = yay_list.pop()
+	
+	# yay_dict = {}
+	# yay_dict['name'] = yay.name
+	# yay_dict['url'] = yay.url
+	# yay_dict['location'] = yay.location
 
+	return yay
 
-
-
+# Access yum and yay lists from session
+# call method to pop a new one 
 
 if __name__ == '__main__':
 	app.debug = True

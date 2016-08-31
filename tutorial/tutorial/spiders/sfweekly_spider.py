@@ -30,6 +30,7 @@ class SFWeeklySpider(scrapy.Spider):
 			url = sel.xpath('div[1]/a/@href').extract()
 			location = sel.xpath('div[2]/div/span[1]/text()').extract()
 
+			# MAP TODO
 			for i in name:
 				str(i)
 				name = i 

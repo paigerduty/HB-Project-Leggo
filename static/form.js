@@ -43,20 +43,12 @@ $('#form').on("submit", function(evt){
 	submitForm(evt);
 });
 
-// When data is retrieved from post request, call getAdventure
-
-// <div id="result">
-// 	<h2>adventah!</h2>
-// 	<div id="yay">
-// 		<div id="yay_name"></div>
-// 		<div id ="yay_location"></div>
-// 	</div>
-// 	<div id="yum">
-// 		<div id="yum_name"></div>
-// 		<div id="yum_location"></div>
-// 	</div>
-// </div>
 function getAdventure(result){
+	// debugger;
+	console.log("Back with Adventure");
+	console.log(result);
+	console.log(result.data);
+	result = JSON.parse(result);
 	$("#yay_url").attr("href", result.yay.url);
 	$("#yay_name").html(result.yay.name);
 	$('#yay_location').html(result.yay.location);
@@ -68,4 +60,22 @@ function getAdventure(result){
 	console.log("Made it back from flask route :D");
 	console.log(result);
 };
+
+function swapYay (result) {
+	result = JSON.parse(result);
+	$("#yay_url").attr("href", result.yay.url);
+	$("#yay_name").html(result.yay.name);
+	$('#yay_location').html(result.yay.location);
+}
+
+
+function submitSwapYay(evt){
+	console.log("Going to get a new Yay!");
+
+	$.get("/swap-yay", swapYay);
+}
+
+$('#swap-yay').on("submit", function(evt){
+	swapYay(evt);
+});
 
