@@ -44,23 +44,12 @@ def submit_data():
 
 	# yum_list_json = jsonify(yum_list)
 
-	session['yays'] = adventah
+	session['adventure'] = adv_json
 
 	print "********************\n\n\n"
 	print "\n\n This is the adventah added to the session\n\n"
 	print adventah
 	print "********************\n\n\n"
-	# # Create vars to hold lists of yums and yays
-	# # add to session
-	# yum_list = adv.yums.yum_list
-	# yay_list = adv.yays.yay_list
-
-	# print "********************\n\n\n"
-	# print yay_list
-	# print "********************\n\n\n"
-
-
-	# session['yay_list'] = yay_list
 
 	return adv_json
 

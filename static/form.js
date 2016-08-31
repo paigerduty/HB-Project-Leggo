@@ -47,16 +47,16 @@ function getAdventure(result){
 	console.log("Back with Adventure");
 	console.log(result);
 	result = JSON.parse(result);
-	$("#yay_url").attr("href", result.yays.yay.url);
-	$("#yay_name").html(result.yays.yay.name);
-	$('#yay_location').html(result.yays.yay.location);
+	var current_yay = result.yays.pop();
+	var current_yum = result.yums.pop();
 
-	$("#yum_url").attr("href", result.yum.url);
-	$("#yum_name").html(result.yum.name);
-	$("#yum_location").html(result.yum.location);
+	$("#yay_url").attr("href", current_yay.url);
+	$("#yay_name").html(current_yay.name);
+	$('#yay_location').html(current_yay.location);
 
-	console.log("Made it back from flask route :D");
-	console.log(result);
+	$("#yum_url").attr("href", current_yum.url);
+	$("#yum_name").html(current_yum.name);
+	$("#yum_location").html(current_yum.location);
 };
 
 function submitSwapYay(evt){

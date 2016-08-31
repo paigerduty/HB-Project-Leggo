@@ -120,14 +120,6 @@ class Adventure(object):
 		self.yums = YumPossibilities(latitude, longitude, time_pref)
 		self.yays = YayPossibilities(latitude, longitude, time_pref)
 
-	def get_the_yum(self):
-		randoyum = self.yums.get_yum()
-		return randoyum
-
-	def get_the_yay(self):
-		randoyay = self.yays.get_yay()
-		return randoyay
-
 	# GET YUMS GET YAYS AS SEPARATE FUNCTIONS
 	# THEN GET YUM GET YAY AND HOLD LIST
 
@@ -137,36 +129,43 @@ class Adventure(object):
 		yum_list = self.yums.get_yums()
 		yay_list = self.yays.get_yays()
 
-		print "\n\n\n**************"
-		print yay_list
-		print yum_list
-		print "\n\n\n**************"
+		yums = []
+		for item in yum_list:
+			yumm = {}
+			yumm['name'] = item.name
+			yumm['url'] = item.url
+			yumm['location'] = str(item.location)
 
-		randoyum = self.get_the_yum()
-		randoyay = self.get_the_yay()
-
-		yum_dict = {}
-		# for yum in yum_list:
-		# 	yumm = {}
-		# 	yumm['name'] = yum.name
-		# 	yumm['url'] = yum.url
-		# 	yumm['location'] = str(yum.location)
-
-		# 	yum['yum'] = yumm
+			yums.append(yumm)
 
 		# GETS LIST OF YUMS AND YAYS THEN POPS OFF
 
-		yay_dict = {}
-		for yay in yay_list:
+		yays = []
+		for item in yay_list:
 			yayy = {}
-			yayy['name'] = yay.name
-			yayy['url'] = yay.url
-			yayy['location'] = yay.location
+			yayy['name'] = item.name
+			yayy['url'] = item.url
+			yayy['location'] = item.location
 
-			yay_dict['yay'] = yayy
+			yays.append(yayy)
+
+		print "***********\n\n"
+		print yums
+		print "***********\n\n"
+		print yays
+		print "\n\n************\n\n"
+
+		# for yay in yay_list:
+		# 	yayy = {}
+		# 	yayy['name'] = yay.name
+		# 	yayy['url'] = yay.url
+		# 	yayy['location'] = yay.location
+
+		# 	yay_dict['yay'] = yayy
 
 		# adventure_dict['yums'] = yum_dict
-		adventure_dict['yays'] = yay_dict
+		adventure_dict['yays'] = yays
+		adventure_dict['yums'] = yums
 
 		return adventure_dict
 
