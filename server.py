@@ -53,13 +53,13 @@ def submit_data():
 
 	return adv_json
 
-@app.route('/swap-yay')
-def swap_yay():
-	yay_list = session['yay_list']
+# @app.route('/swap-yay')
+# def swap_yay():
+# 	yay_list = session['adventure']['yays']
 
-	print "********************\n\n\n"
-	print yay_list
-	print "********************\n\n\n"
+# 	print "********************\n\n\n"
+# 	print yay_list
+# 	print "********************\n\n\n"
 
 
 	# yay_list = json.loads(yay_list)

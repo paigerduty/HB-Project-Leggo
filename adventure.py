@@ -149,28 +149,13 @@ class Adventure(object):
 
 			yays.append(yayy)
 
-		print "***********\n\n"
-		print yums
-		print "***********\n\n"
-		print yays
-		print "\n\n************\n\n"
-
-		# for yay in yay_list:
-		# 	yayy = {}
-		# 	yayy['name'] = yay.name
-		# 	yayy['url'] = yay.url
-		# 	yayy['location'] = yay.location
-
-		# 	yay_dict['yay'] = yayy
-
-		# adventure_dict['yums'] = yum_dict
 		adventure_dict['yays'] = yays
 		adventure_dict['yums'] = yums
 
 		return adventure_dict
 
 	def swap_yay(self):
-		new_yay = session['yay_list'].pop()
+		new_yay = session['adventure']
 
 		yay_dict = {}
 		yay_dict['name'] = (new_yay.name)
