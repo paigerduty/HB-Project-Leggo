@@ -53,29 +53,6 @@ def submit_data():
 
 	return adv_json
 
-# @app.route('/swap-yay')
-# def swap_yay():
-# 	yay_list = session['adventure']['yays']
-
-# 	print "********************\n\n\n"
-# 	print yay_list
-# 	print "********************\n\n\n"
-
-
-	# yay_list = json.loads(yay_list)
-	# UNJSONIFY ADVENTURE
-	# GRAB YAY LIST
-	# POP OFF YAY
-	# RETURN
-
-	# print "********************\n\n\n"
-	# print yay_list
-	# print "********************\n\n\n"
-	
-	return yay_list
-
-# Access yum and yay lists from session
-# call method to pop a new one 
 
 if __name__ == '__main__':
 	app.debug = True
