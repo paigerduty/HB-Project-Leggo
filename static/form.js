@@ -65,47 +65,34 @@ function getAdventure(result){
 	$("#yum_name").html(current_yum.name);
 	$("#yum_location").html(current_yum.location);
 
-	// return yays, yums;
 };
 
 function submitSwapYay(evt){
 	console.log("Going to get a new Yay!");
 	var current_yay = yays.pop();
-	var current_yum = yums.pop();
 
 	$("#yay_url").attr("href", current_yay.url);
 	$("#yay_name").html(current_yay.name);
 	$('#yay_location').html(current_yay.location);
+
+}
+
+$('#swap-yay').on("click", function(evt){
+	submitSwapYay(evt);
+});
+
+
+function submitSwapYum(evt){
+	console.log("Going to get a new Yum!");
+	var current_yum = yums.pop();
 
 	$("#yum_url").attr("href", current_yum.url);
 	$("#yum_name").html(current_yum.name);
 	$("#yum_location").html(current_yum.location);
 }
 
-
-
-	// $.get("/swap-yay", swapYay);
-
-		// function(result) {
-		// result = JSON.parse(result);
-		// console.log(result);
-		// console.log("Back with Yay")
-
-		// $("#yay_url").attr("href", result.yay.url);
-		// $("#yay_name").html(result.yay.name);
-		// $('#yay_location').html(result.yay.location);
-
-$('#swap-yay').on("click", function(evt){
-	submitSwapYay(evt);
+$('#swap-yum').on("click", function(evt){
+	submitSwapYum(evt);
 });
 
-function swapYay (result) {
-	result = JSON.parse(result);
-	console.log(result.data);
-	console.log("Back with a Yay")
-
-	$("#yay_url").attr("href", result.yay.url);
-	$("#yay_name").html(result.yay.name);
-	$('#yay_location').html(result.yay.location);
-};
 
