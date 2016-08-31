@@ -2,6 +2,7 @@
 console.log('I loaded!');
 var latitude;
 var longitude;
+var latLng;
 
 $(document).ready( function(){
 	navigator.geolocation.getCurrentPosition(handleGetCurrentPosition);
@@ -77,6 +78,7 @@ function getAdventure(result){
 
 function initMap(){
 	var map;
+	var marker;
 	console.log("initMap called");
 
 	// Makes new map Object
@@ -84,9 +86,16 @@ function initMap(){
 		center: {lat: parseFloat(latitude.value), lng: parseFloat(longitude.value)},
 		zoom: 10
 	});
+
+	marker = new google.maps.Marker({
+		position: {lat: parseFloat(latitude.value), lng:parseFloat(longitude.value)},
+		map:map,
+		title: 'Current Loc <3'
+	});
 	console.log(map);
 
 }
+
 function submitSwapYay(evt){
 	console.log("Going to get a new Yay!");
 	var current_yay = yays.pop();
