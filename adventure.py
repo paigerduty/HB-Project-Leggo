@@ -132,6 +132,7 @@ class Adventure(object):
 	# THEN GET YUM GET YAY AND HOLD LIST
 
 	def get_adventure(self):
+		"""Returns adventure_dict with list of yays and yums"""
 		adventure_dict = {}
 		yum_list = self.yums.get_yums()
 		yay_list = self.yays.get_yays()
@@ -170,7 +171,7 @@ class Adventure(object):
 		return adventure_dict
 
 	def swap_yay(self):
-		new_yay = self.yay_list.pop()
+		new_yay = session['yay_list'].pop()
 
 		yay_dict = {}
 		yay_dict['name'] = (new_yay.name)
@@ -179,15 +180,15 @@ class Adventure(object):
 
 		return yay_dict
 
-	def swap_yum(self):
-		new_yum = self.yum_list.pop()
+	# def swap_yum(self):
+	# 	new_yum = self.yum_list.pop()
 				
-		yum_dict = {}
-		yum_dict['name'] = (new_yum.name)
-		yum_dict['url'] = (new_yum.url)
-		yum_dict['location'] = str(new_yum.location)
+	# 	yum_dict = {}
+	# 	yum_dict['name'] = (new_yum.name)
+	# 	yum_dict['url'] = (new_yum.url)
+	# 	yum_dict['location'] = str(new_yum.location)
 
-		return yum_dict
+	# 	return yum_dict
 
 if __name__ == "__main__":
 	connect_to_db(app)

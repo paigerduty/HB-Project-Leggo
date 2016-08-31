@@ -44,14 +44,12 @@ $('#form').on("submit", function(evt){
 });
 
 function getAdventure(result){
-	// debugger;
 	console.log("Back with Adventure");
 	console.log(result);
-	console.log(result.data);
 	result = JSON.parse(result);
-	$("#yay_url").attr("href", result.yay.url);
-	$("#yay_name").html(result.yay.name);
-	$('#yay_location').html(result.yay.location);
+	$("#yay_url").attr("href", result.yays.yay.url);
+	$("#yay_name").html(result.yays.yay.name);
+	$('#yay_location').html(result.yays.yay.location);
 
 	$("#yum_url").attr("href", result.yum.url);
 	$("#yum_name").html(result.yum.name);
