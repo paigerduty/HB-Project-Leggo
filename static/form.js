@@ -3,7 +3,10 @@ console.log('I loaded!');
 var latitude;
 var longitude;
 var latLng;
-
+var markers;
+var map;
+var yay_lat;
+var yay_long;
 // var markerCount = 0;
 
 $(document).ready( function(){
@@ -86,9 +89,6 @@ function initMap(current_yum, current_yay){
 	loc = loc.replace(",",":").slice(2,-2).split(":");
 	yay_latitude = loc[1];
 	yay_longitude = loc[3];
-	console.log(">>>>>>>>>>>>>>")
-	console.log(yay_latitude, yay_longitude);
-
 
 	var markers = [
 		['user_marker', parseFloat(latitude.value),parseFloat(longitude.value),1],
@@ -103,35 +103,10 @@ function initMap(current_yum, current_yay){
 		});
 	}
 
-	//  var user_marker = new google.maps.Marker({
-	// 	position: {lat: parseFloat(latitude.value), lng:parseFloat(longitude.value)},
-	// 	map:map,
-	// 	title: 'Current Loc <3'
-	// });
-
-
-	// var yay_marker = new google.maps.Marker({
-	// 	position: {lat: parseFloat(yay_latitude), lng:parseFloat(yay_longitude)},
-	// 	map:map
-	// });
-
-	// var yum_marker = new google.maps.Marker({
-	// 	position: {lat: parseFloat(current_yum.latitude), lng:parseFloat(current_yum.longitude)},
-	// 	map:map
-	// });
-
 	console.log(map);
 
 }
 
-// function addMarkersToMap(latitude, longitude){
-// 	var latLng = new google.maps.LatLng(latitude, longitude);
-// 	var marker = new google.maps.Marker({
-// 		position: latLng,
-// 		map: map,
-// 		animation: google.maps.Animation.DROP,
-// 	});
-// }
 
 function submitSwapYay(evt){
 	console.log("Going to get a new Yay!");
@@ -141,18 +116,45 @@ function submitSwapYay(evt){
 	$("#yay_name").html(current_yay.name);
 	$('#yay_location').html(current_yay.location);
 
-	var loc = current_yay.location;
-	loc = loc.replace(",",":").slice(2,-2).split(":");
-	yay_latitude = loc[1];
-	yay_longitude = loc[3];
-	console.log(">>>>>>>>>>>>>>")
-	console.log(yay_latitude, yay_longitude);
+	// debugger;
 
-	yay_marker = new google.maps.Marker({
-			position: {lat: parseFloat(yay_latitude), lng:parseFloat(yay_longitude)},
-			map:map
-		});
+	var geocoder = new google.maps.Geocoder();
+	var loc = current_yay.location;
+
+	geocoder.geocode( { 'address': loc}, function(results, status) {
+	    var yay_lat = results[0].geometry.location.lat();
+	    console.log(yay_lat);
+	    var yay_long = results[0].geometry.location.lng();
+	    console.log(yay_long);
+	}); 
+
+
+	// loc = loc.replace(",",":").slice(2,-2).split(":");
+	// yay_latitude = loc[1];
+	// yay_longitude = loc[3];
+	console.log(">>>>>>>>>>>>>>")
+	console.log("geocoded addy")
+
+	var yay_marker = new google.maps.Marker({
+		position: {lat: parseFloat(yay_lat), 
+			       lng: parseFloat(yay_long)},
+		map:map
+	});
+
+	console.log("should have placed new yay marker")
+	// var markers = [
+	// 	['user_marker', parseFloat(latitude.value),parseFloat(longitude.value),1],
+	// 	['yay_marker', parseFloat(yay_latitude),parseFloat(yay_longitude),2],
+	// 	['yum_marker', current_yum.latitude, current_yum.longitude,3]
+	// ];
+
+	// for (i=0; i<markers.length;i++){
+	// 	marker = new google.maps.Marker({
+	// 		position: {lat: markers[i][1], lng: markers[i][2]},
+	// 		map:map
+	// 	});
 }
+
 
 $('#swap-yay').on("click", function(evt){
 	submitSwapYay(evt);
