@@ -42,7 +42,7 @@ class YumPossibilities(object):
 		payload['term'] = self.time_pref
 		payload['longitude'] = self.longitude
 		payload['latitude'] = self.latitude
-		# payload['radius'] = 2
+		payload['radius'] = 804
 
 		# Yelp API call
 		url = 'https://api.yelp.com/v3/businesses/search?'

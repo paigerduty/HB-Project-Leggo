@@ -4,6 +4,8 @@ var latitude;
 var longitude;
 var latLng;
 
+// var markerCount = 0;
+
 $(document).ready( function(){
 	navigator.geolocation.getCurrentPosition(handleGetCurrentPosition);
 	});
@@ -15,11 +17,6 @@ function handleGetCurrentPosition(location){
 	longitude.value = location.coords.longitude;
 
 };
-
-//default not clickable function set button to clickable
-
-// AJAX call to replace form with Adventure!
-// Typical format is $.get(url, [data], successFunction)
 
 function submitForm(evt){
 	evt.preventDefault();
@@ -63,7 +60,7 @@ function getAdventure(result){
 	var current_yay = yays.pop();
 	var current_yum = yums.pop();
 
-	initMap();
+	initMap(current_yay, current_yum);
 
 	$("#yay_url").attr("href", current_yay.url);
 	$("#yay_name").html(current_yay.name);
@@ -76,24 +73,42 @@ function getAdventure(result){
 	$('#swap-yum').attr("style", "");
 };
 
-function initMap(){
-	var map;
-	var marker;
+function initMap(current_yum, current_yay){
 	console.log("initMap called");
-
+	var map;
 	// Makes new map Object
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: parseFloat(latitude.value), lng: parseFloat(longitude.value)},
-		zoom: 15
+		zoom: 12
 	});
 
-	marker = new google.maps.Marker({
+	 var user_marker = new google.maps.Marker({
 		position: {lat: parseFloat(latitude.value), lng:parseFloat(longitude.value)},
 		map:map,
 		title: 'Current Loc <3'
 	});
+
+	var yum_marker = new google.maps.Marker({
+		position: {lat: parseFloat(current_yum.latitude), lng:parseFloat(current_yum.longitude)},
+		map:map
+	});
+
+	var yay_marker = new google.maps.Marker({
+		position: {lat: parseFloat(current_yay.latitude), lng:parseFloat(current_yay.longitude)},
+		map:map
+	});
+
 	console.log(map);
 
+}
+
+function addMarkersToMap(latitude, longitude){
+	var latLng = new google.maps.LatLng(latitude, longitude);
+	var marker = new google.maps.Marker({
+		position: latLng,
+		map: map,
+		animation: google.maps.Animation.DROP,
+	});
 }
 
 function submitSwapYay(evt){
