@@ -88,13 +88,20 @@ function initMap(current_yum, current_yay){
 		title: 'Current Loc <3'
 	});
 
-	var yum_marker = new google.maps.Marker({
-		position: {lat: parseFloat(current_yum.latitude), lng:parseFloat(current_yum.longitude)},
+	var loc = current_yay.location;
+	loc = loc.replace(",",":").slice(2,-2).split(":");
+	yay_latitude = loc[1];
+	yay_longitude = loc[3];
+	console.log(">>>>>>>>>>>>>>")
+	console.log(yay_latitude, yay_longitude);
+
+	var yay_marker = new google.maps.Marker({
+		position: {lat: parseFloat(yay_latitude), lng:parseFloat(yay_longitude)},
 		map:map
 	});
 
-	var yay_marker = new google.maps.Marker({
-		position: {lat: parseFloat(current_yay.latitude), lng:parseFloat(current_yay.longitude)},
+	var yum_marker = new google.maps.Marker({
+		position: {lat: parseFloat(current_yum.latitude), lng:parseFloat(current_yum.longitude)},
 		map:map
 	});
 

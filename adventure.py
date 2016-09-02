@@ -42,7 +42,7 @@ class YumPossibilities(object):
 		payload['term'] = self.time_pref
 		payload['longitude'] = self.longitude
 		payload['latitude'] = self.latitude
-		payload['radius'] = 804
+		payload['radius_filter'] = 400
 
 		# Yelp API call
 		url = 'https://api.yelp.com/v3/businesses/search?'
@@ -95,9 +95,6 @@ class YayPossibilities(object):
 
 	def get_yays(self):
 		yay_list = Yay.query.all()
-		#  Transform each Yay location to geocode lat long'[];
-		for yay in yay_list:
-			yay.geolocate()
 
 		self.yay_list = yay_list
 
@@ -137,8 +134,8 @@ class Adventure(object):
 		yays = []
 		for item in yay_list:
 			yayy = {}
-			# item.geolocate()
-			yayy['name'] = item.name
+			item.geolocate()
+			yayy['name'] = str(item.name)
 			yayy['url'] = item.url
 			yayy['location'] = item.location
 			yayy['latitude'] = item.latitude
@@ -147,8 +144,9 @@ class Adventure(object):
 			yays.append(yayy)
 
 		adventure_dict['yays'] = yays
-
 		first_yay = yays[0]
+
+
 		self.yums = YumPossibilities(first_yay['latitude'], first_yay['longitude'], self.time_pref)
 		yum_list = self.yums.get_yums()
 
@@ -165,25 +163,6 @@ class Adventure(object):
 
 		return adventure_dict
 
-	# def swap_yay(self):
-	# 	new_yay = session['adventure']
-
-	# 	yay_dict = {}
-	# 	yay_dict['name'] = (new_yay.name)
-	# 	yay_dict['url'] = (new_yay.url)
-	# 	yay_dict['location'] = (new_yay.location)
-
-	# 	return yay_dict
-
-	# def swap_yum(self):
-	# 	new_yum = self.yum_list.pop()
-				
-	# 	yum_dict = {}
-	# 	yum_dict['name'] = (new_yum.name)
-	# 	yum_dict['url'] = (new_yum.url)
-	# 	yum_dict['location'] = str(new_yum.location)
-
-	# 	return yum_dict
 
 if __name__ == "__main__":
 	connect_to_db(app)

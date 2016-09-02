@@ -22,6 +22,8 @@ class Yay(db.Model):
 		self.name = name
 		self.url = url
 		self.location = location
+		self.latitude = ''
+		self.longitude = ''
 
 	def __repr__(self):
 		return '<Yay %r>' % self.name
