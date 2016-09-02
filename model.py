@@ -1,6 +1,8 @@
 """Classes for database only"""
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import geocoder
+
 
 app = Flask(__name__)
 DB_URI = "postgresql:///yays"
@@ -24,7 +26,9 @@ class Yay(db.Model):
 	def __repr__(self):
 		return '<Yay %r>' % self.name
 
-
+	def geolocate(self):
+		g = geocoder.google(self.location + ' San Francisco, CA')
+		self.latitude, self.longitude = g.lat, g.lng 
 
 
 ####################################################################

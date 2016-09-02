@@ -36,6 +36,12 @@ class Yay(db.Model):
 				'url' : self.url,
 				'location' : self.location
 		 		}
+
+	def geolocate(self):
+		g = geocoder.google(self.location)
+		g = g.latlng
+		self.latlng = g
+
 ####################################################################
 # Helper functions
 

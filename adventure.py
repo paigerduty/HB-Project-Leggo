@@ -1,5 +1,6 @@
 import os
 import requests
+import geocoder
 from model import Yay, connect_to_db, db, app
 from flask import Flask, current_app, jsonify
 from random import choice
@@ -7,10 +8,6 @@ from random import choice
 class YumPossibilities(object):
 	'''A list of Yum objects returned from Yelp API call.'''
 	yum_list = []
-
-# STORE THIS OBJECT 
-# PASS JAVASCRIPT AND TOGGLE HIDE/SHOW
-# METHOD THAT MAKES REP OF CLASS FOR JS. JSONIFY DICT
 
 	def __init__(self, latitude,longitude,time_pref):
 		self.latitude = latitude
@@ -39,11 +36,13 @@ class YumPossibilities(object):
 		headers = {}
 		headers['Authorization'] = 'Bearer ' + str(self.token)
 
+		# Pass in address of Yay into payload (add SF)
 		# Creates a dictionary based on Yelp Search params
 		payload = {}
 		payload['term'] = self.time_pref
 		payload['longitude'] = self.longitude
 		payload['latitude'] = self.latitude
+		# payload['radius'] = 2
 
 		# Yelp API call
 		url = 'https://api.yelp.com/v3/businesses/search?'
@@ -96,7 +95,12 @@ class YayPossibilities(object):
 
 	def get_yays(self):
 		yay_list = Yay.query.all()
+		#  Transform each Yay location to geocode lat long'[];
+		for yay in yay_list:
+			yay.geolocate()
+
 		self.yay_list = yay_list
+
 		return yay_list
 
 	def get_yay(self):
@@ -117,7 +121,7 @@ class Adventure(object):
 		self.latitude = latitude
 		self.longitude = longitude
 		self.time_pref = time_pref
-		self.yums = YumPossibilities(latitude, longitude, time_pref)
+		# self.yums = YumPossibilities(latitude, longitude, time_pref)
 		self.yays = YayPossibilities(latitude, longitude, time_pref)
 
 	# GET YUMS GET YAYS AS SEPARATE FUNCTIONS
@@ -126,8 +130,27 @@ class Adventure(object):
 	def get_adventure(self):
 		"""Returns adventure_dict with list of yays and yums"""
 		adventure_dict = {}
-		yum_list = self.yums.get_yums()
 		yay_list = self.yays.get_yays()
+
+		# GETS LIST OF YUMS AND YAYS THEN POPS OFF
+
+		yays = []
+		for item in yay_list:
+			yayy = {}
+			# item.geolocate()
+			yayy['name'] = item.name
+			yayy['url'] = item.url
+			yayy['location'] = item.location
+			yayy['latitude'] = item.latitude
+			yayy['longitude'] = item.longitude
+
+			yays.append(yayy)
+
+		adventure_dict['yays'] = yays
+
+		first_yay = yays[0]
+		self.yums = YumPossibilities(first_yay['latitude'], first_yay['longitude'], self.time_pref)
+		yum_list = self.yums.get_yums()
 
 		yums = []
 		for item in yum_list:
@@ -138,31 +161,19 @@ class Adventure(object):
 
 			yums.append(yumm)
 
-		# GETS LIST OF YUMS AND YAYS THEN POPS OFF
-
-		yays = []
-		for item in yay_list:
-			yayy = {}
-			yayy['name'] = item.name
-			yayy['url'] = item.url
-			yayy['location'] = item.location
-
-			yays.append(yayy)
-
-		adventure_dict['yays'] = yays
 		adventure_dict['yums'] = yums
 
 		return adventure_dict
 
-	def swap_yay(self):
-		new_yay = session['adventure']
+	# def swap_yay(self):
+	# 	new_yay = session['adventure']
 
-		yay_dict = {}
-		yay_dict['name'] = (new_yay.name)
-		yay_dict['url'] = (new_yay.url)
-		yay_dict['location'] = (new_yay.location)
+	# 	yay_dict = {}
+	# 	yay_dict['name'] = (new_yay.name)
+	# 	yay_dict['url'] = (new_yay.url)
+	# 	yay_dict['location'] = (new_yay.location)
 
-		return yay_dict
+	# 	return yay_dict
 
 	# def swap_yum(self):
 	# 	new_yum = self.yum_list.pop()

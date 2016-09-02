@@ -3,6 +3,7 @@ import os
 import requests
 import adventure
 import json
+import geocoder
 from model import connect_to_db, db, app,Yay
 
 # Importing from pip installed libraries
@@ -41,8 +42,6 @@ def submit_data():
 	adv_json = json.dumps(adventah)
 
 	print "Im in route now...... adventah"
-
-	# yum_list_json = jsonify(yum_list)
 
 	session['adventure'] = adv_json
 

@@ -84,7 +84,7 @@ function initMap(){
 	// Makes new map Object
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: parseFloat(latitude.value), lng: parseFloat(longitude.value)},
-		zoom: 10
+		zoom: 15
 	});
 
 	marker = new google.maps.Marker({
