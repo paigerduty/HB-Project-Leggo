@@ -82,12 +82,6 @@ function initMap(current_yum, current_yay){
 		zoom: 12
 	});
 
-	 var user_marker = new google.maps.Marker({
-		position: {lat: parseFloat(latitude.value), lng:parseFloat(longitude.value)},
-		map:map,
-		title: 'Current Loc <3'
-	});
-
 	var loc = current_yay.location;
 	loc = loc.replace(",",":").slice(2,-2).split(":");
 	yay_latitude = loc[1];
@@ -95,28 +89,49 @@ function initMap(current_yum, current_yay){
 	console.log(">>>>>>>>>>>>>>")
 	console.log(yay_latitude, yay_longitude);
 
-	var yay_marker = new google.maps.Marker({
-		position: {lat: parseFloat(yay_latitude), lng:parseFloat(yay_longitude)},
-		map:map
-	});
 
-	var yum_marker = new google.maps.Marker({
-		position: {lat: parseFloat(current_yum.latitude), lng:parseFloat(current_yum.longitude)},
-		map:map
-	});
+	var markers = [
+		['user_marker', parseFloat(latitude.value),parseFloat(longitude.value),1],
+		['yay_marker', parseFloat(yay_latitude),parseFloat(yay_longitude),2],
+		['yum_marker', current_yum.latitude, current_yum.longitude,3]
+	];
+
+	for (i=0; i<markers.length;i++){
+		marker = new google.maps.Marker({
+			position: {lat: markers[i][1], lng: markers[i][2]},
+			map:map
+		});
+	}
+
+	//  var user_marker = new google.maps.Marker({
+	// 	position: {lat: parseFloat(latitude.value), lng:parseFloat(longitude.value)},
+	// 	map:map,
+	// 	title: 'Current Loc <3'
+	// });
+
+
+	// var yay_marker = new google.maps.Marker({
+	// 	position: {lat: parseFloat(yay_latitude), lng:parseFloat(yay_longitude)},
+	// 	map:map
+	// });
+
+	// var yum_marker = new google.maps.Marker({
+	// 	position: {lat: parseFloat(current_yum.latitude), lng:parseFloat(current_yum.longitude)},
+	// 	map:map
+	// });
 
 	console.log(map);
 
 }
 
-function addMarkersToMap(latitude, longitude){
-	var latLng = new google.maps.LatLng(latitude, longitude);
-	var marker = new google.maps.Marker({
-		position: latLng,
-		map: map,
-		animation: google.maps.Animation.DROP,
-	});
-}
+// function addMarkersToMap(latitude, longitude){
+// 	var latLng = new google.maps.LatLng(latitude, longitude);
+// 	var marker = new google.maps.Marker({
+// 		position: latLng,
+// 		map: map,
+// 		animation: google.maps.Animation.DROP,
+// 	});
+// }
 
 function submitSwapYay(evt){
 	console.log("Going to get a new Yay!");
@@ -125,6 +140,18 @@ function submitSwapYay(evt){
 	$("#yay_url").attr("href", current_yay.url);
 	$("#yay_name").html(current_yay.name);
 	$('#yay_location').html(current_yay.location);
+
+	var loc = current_yay.location;
+	loc = loc.replace(",",":").slice(2,-2).split(":");
+	yay_latitude = loc[1];
+	yay_longitude = loc[3];
+	console.log(">>>>>>>>>>>>>>")
+	console.log(yay_latitude, yay_longitude);
+
+	yay_marker = new google.maps.Marker({
+			position: {lat: parseFloat(yay_latitude), lng:parseFloat(yay_longitude)},
+			map:map
+		});
 }
 
 $('#swap-yay').on("click", function(evt){
