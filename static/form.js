@@ -64,12 +64,12 @@ function getAdventure(result){
 
 	$("#yay_url").attr("href", current_yay.url);
 	$("#yay_name").html(current_yay.name);
-	$('#yay_location').html(current_yay.location);
+	// $('#yay_location').html(current_yay.location);
 	$('#swap-yay').attr("style","");
 
 	$("#yum_url").attr("href", current_yum.url);
 	$("#yum_name").html(current_yum.name);
-	$("#yum_location").html(current_yum.location);
+	// $("#yum_location").html(current_yum.location);
 	$('#swap-yum').attr("style", "");
 };
 
@@ -93,9 +93,16 @@ function initMap(current_yum, current_yay){
 		['yum_marker', current_yum.latitude, current_yum.longitude,3]
 	];
 
+	icons = [
+		['user', '/img/user.svg'],
+ 		['yay', '/img/Yay Icon.png.pdf'],
+ 		['yum', '/img/yum icon.pdf']
+ 			];
+
 	for (i=0; i<markers.length;i++){
 		marker = new google.maps.Marker({
 			position: {lat: markers[i][1], lng: markers[i][2]},
+			// icon: icons[i][1],
 			map:map
 		});
 	}
@@ -111,7 +118,7 @@ function submitSwapYay(evt){
 
 	$("#yay_url").attr("href", current_yay.url);
 	$("#yay_name").html(current_yay.name);
-	$('#yay_location').html(current_yay.location);
+	// $('#yay_location').html(current_yay.location);
 
 	var geocoder = new google.maps.Geocoder();
 
@@ -153,7 +160,7 @@ function submitSwapYum(evt){
 
 	$("#yum_url").attr("href", current_yum.url);
 	$("#yum_name").html(current_yum.name);
-	$("#yum_location").html(current_yum.location);
+	// $("#yum_location").html(current_yum.location);
 
 	var loc = current_yum.location;
 	loc = loc.replace(",",":").slice(2,-2).split(":");
