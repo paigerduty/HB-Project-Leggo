@@ -3,7 +3,6 @@ console.log('I loaded!');
 var latitude;
 var longitude;
 var latLng;
-var markers;
 
 $(document).ready( function(){
 	navigator.geolocation.getCurrentPosition(handleGetCurrentPosition);
@@ -27,7 +26,7 @@ function submitForm(evt){
 		"longitude": $('#longitude').val(),
 		"time_pref": $('#time_pref').val()
 	};
-	// JSON-ifys javascript object to prep for post
+	// JSON-ifys object to prep for POST
 	var stringy = JSON.stringify(formInputs, 
 								['latitude', 
 								 'longitude', 
@@ -35,14 +34,14 @@ function submitForm(evt){
 								); 
 	console.log(stringy);
 
-	// Makes the POST request to submit the form data to the route
-	// Calls function getAdventure once back from server
+	// Submits form data to Flask route
+	// Calls getAdventure once back from server
 	$.post("/submit-data",
 		   formInputs,
 		   getAdventure);
 }
 
-// Eventhandler, on form submit, call the function submitForm
+// Eventhandler for form submission
 $('#form').on("submit", function(evt){
 	submitForm(evt);
 });
@@ -78,8 +77,6 @@ var map;
 var markers;
 function initMap(current_yum, current_yay){
 	console.log("initMap called");
-	// var map;
-	// Makes new map Object
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: parseFloat(latitude.value), lng: parseFloat(longitude.value)},
 		zoom: 12
@@ -117,35 +114,26 @@ function submitSwapYay(evt){
 	$('#yay_location').html(current_yay.location);
 
 	var geocoder = new google.maps.Geocoder();
-	var yay_lat;
-	var yay_long;
 
 	geocoder.geocode({'address': current_yay.location}, function(results) {
-	    yay_lat = results[0].geometry.location.lat();
-	    yay_long = results[0].geometry.location.lng();
-	    markers[1][1] = yay_lat;
+		var yay_lat = results[0].geometry.location.lat();
+		var yay_long = results[0].geometry.location.lng();
+
+		console.log("geocoded addy", yay_lat, yay_long);
+
+		markers[1][1] = yay_lat;
 		markers[1][2] = yay_long;
-	}); 
 
-
-	console.log(">>>>>>>>>>>>>>");
-	console.log("geocoded addy", yay_lat, yay_long);
-	
-	console.log("new yay",markers[1]);
-
-	var new_marker = new google.maps.Marker({
-			position: {lat: markers[1][1], lng: markers[1][2]},
+		for (i=0;i <markers.length; i++) {
+			marker = new google.maps.Marker({
+			position: {lat: markers[i][1], lng: markers[i][2]},
 			map:map
-		});
+			});
+		}
+	});
 
-	console.log("HOPEFULLY STUFF CHANGED");
-
-	// var new_marker = new google.maps.Marker({
-	// 		position: {lat: markers[i][1], lng: markers[i][2]},
-	// 		map:map
-	// 	});
-
-	console.log("should have placed new yay marker")
+	console.log("MARKERS", markers);
+	
 }
 
 
@@ -162,29 +150,23 @@ function submitSwapYum(evt){
 	$("#yum_name").html(current_yum.name);
 	$("#yum_location").html(current_yum.location);
 
-
-	console.log("new yum",markers[2]);
-	console.log("new yum lat",markers[2][1]);
-
-
 	var loc = current_yum.location;
 	loc = loc.replace(",",":").slice(2,-2).split(":");
 	yum_latitude = loc[1];
 	yum_longitude = loc[3];
 
-	var cur_yum = markers[2];
-	console.log("cur_yum",cur_yum);
-	console.log("Look at methods on current_yum");
-	// cur_yum[1] = yum_latitude;
-	// cur_yum[2] = yum_longitude;
+	console.log(markers[2][1]);
+	markers[2][1] = parseFloat(yum_latitude);
+	console.log(markers[2][1]);
+	markers[2][2] = parseFloat(yum_longitude);
 
-	console.log("HOPEFULLY STUFF CHANGED");
-	console.log("cur_yay", cur_yay);
-
-	var new_marker = new google.maps.Marker({
-			position: {lat: cur_yum[1], lng: cur_yum[2]},
-			map:map
+	for (i=0;i <markers.length; i++) {
+		marker = new google.maps.Marker({
+		position: {lat: markers[i][1], lng: markers[i][2]},
+		map:map
 		});
+	}
+
 
 	console.log("should have placed new yay marker")
 }
