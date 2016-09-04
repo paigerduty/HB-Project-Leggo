@@ -124,6 +124,11 @@ function submitSwapYay(evt){
 		markers[1][1] = yay_lat;
 		markers[1][2] = yay_long;
 
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: parseFloat(latitude.value), lng: parseFloat(longitude.value)},
+			zoom: 12
+		});
+
 		for (i=0;i <markers.length; i++) {
 			marker = new google.maps.Marker({
 			position: {lat: markers[i][1], lng: markers[i][2]},
@@ -159,6 +164,11 @@ function submitSwapYum(evt){
 	markers[2][1] = parseFloat(yum_latitude);
 	console.log(markers[2][1]);
 	markers[2][2] = parseFloat(yum_longitude);
+
+	map = new google.maps.Map(document.getElementById('map'), {
+		center: {lat: parseFloat(latitude.value), lng: parseFloat(longitude.value)},
+		zoom: 12
+	});
 
 	for (i=0;i <markers.length; i++) {
 		marker = new google.maps.Marker({

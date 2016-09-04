@@ -6,6 +6,8 @@
 }
 
 #yay {
+	float: left;
+	width: 35%;
 	background-color: white;
 	border: 5px solid red;
 	padding: 1em;
@@ -13,6 +15,8 @@
 }
 
 #yum {
+	width: 35%;
+	float: right;
 	background-color: white;
 	border: 5px solid blue;
 	padding: 1em;
