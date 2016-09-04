@@ -4,9 +4,6 @@ var latitude;
 var longitude;
 var latLng;
 var markers;
-var yay_lat;
-var yay_long;
-// var markerCount = 0;
 
 $(document).ready( function(){
 	navigator.geolocation.getCurrentPosition(handleGetCurrentPosition);
@@ -119,43 +116,34 @@ function submitSwapYay(evt){
 	$("#yay_name").html(current_yay.name);
 	$('#yay_location').html(current_yay.location);
 
-	// debugger;
-
 	var geocoder = new google.maps.Geocoder();
-
 	var yay_lat;
 	var yay_long;
+
 	geocoder.geocode({'address': current_yay.location}, function(results) {
-	    console.log("results", results)
 	    yay_lat = results[0].geometry.location.lat();
-	    // debugger;
-	    console.log("yay_lat",yay_lat);
 	    yay_long = results[0].geometry.location.lng();
-	    console.log("yay_long",yay_long);
+	    markers[1][1] = yay_lat;
+		markers[1][2] = yay_long;
 	}); 
 
 
 	console.log(">>>>>>>>>>>>>>");
-	console.log("geocoded addy");
-
-	// ONCE MARKER IS ADDED TURN INTO A FUNCTION THEN CALL THAT FXN AND PASS LATLNG
-	console.log("YAY INFO INCOMING");
-	console.log(markers[1]);
-	console.log(markers[1][1]);
-
-	var cur_yay = markers[1];
-	console.log("cur_yay",cur_yay);
-	debugger;
-	cur_yay[1] = yay_lat;
-	cur_yay[2] = yay_long;
-
-	console.log("HOPEFULLY STUFF CHANGED");
-	console.log("cur_yay", cur_yay);
+	console.log("geocoded addy", yay_lat, yay_long);
+	
+	console.log("new yay",markers[1]);
 
 	var new_marker = new google.maps.Marker({
-			position: {lat: markers[i][1], lng: markers[i][2]},
+			position: {lat: markers[1][1], lng: markers[1][2]},
 			map:map
 		});
+
+	console.log("HOPEFULLY STUFF CHANGED");
+
+	// var new_marker = new google.maps.Marker({
+	// 		position: {lat: markers[i][1], lng: markers[i][2]},
+	// 		map:map
+	// 	});
 
 	console.log("should have placed new yay marker")
 }
@@ -187,9 +175,8 @@ function submitSwapYum(evt){
 	var cur_yum = markers[2];
 	console.log("cur_yum",cur_yum);
 	console.log("Look at methods on current_yum");
-	debugger;
-	cur_yum[1] = yum_latitude;
-	cur_yum[2] = yum_longitude;
+	// cur_yum[1] = yum_latitude;
+	// cur_yum[2] = yum_longitude;
 
 	console.log("HOPEFULLY STUFF CHANGED");
 	console.log("cur_yay", cur_yay);
