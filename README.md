@@ -1,4 +1,4 @@
-# HB-Project-Leggo
+# HB-Project-Leggo.
 
 Leggo SF was inspired by the abundance of food and events in SF. 
 The app solves the decision paralysis that results from too many options by providing an adventure based on a user's current location and meal preference. 
