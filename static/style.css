@@ -32,28 +32,29 @@
 	background-color: transparent;
 	font-size: 25px;
 	color:  white;
-	border: none;
+	border: solid 2px white;
+	border-radius: 5px;
 }
 
 #btn {
-	background: transparent;
 	font-size: 25px;
 	position: center;
 	font-family: 'Roboto', sans-serif;
-	border: none;
 	padding: 3px;
 	margin: 3px;
-	color: white;
+	border: solid 3px transparent;
+	border-radius: 10px;
+	background-color: gray;
 }
 
 #swap-yay {
-	border: solid 3px gray;
+	border: solid 3px transparent;
 	border-radius: 10px;
 	background-color: gray;
 }
 
 #swap-yum {
-	border: solid 3px gray;
+	border: solid 3px transparent;
 	border-radius: 10px;
 	background-color: gray;
 }
